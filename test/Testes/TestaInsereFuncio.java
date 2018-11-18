@@ -1,8 +1,9 @@
 package Testes;
 
 import javax.swing.JOptionPane;
+
 import model.Funcionario;
-import model.dao.FuncionarioDao;
+import model.dao.TecnicoDao;
 
 
 public class TestaInsereFuncio {
@@ -17,7 +18,7 @@ public class TestaInsereFuncio {
         funcionario.setDepartamento("Financeiro");
         funcionario.setPerfil("Usuário");
         
-        FuncionarioDao dao = new FuncionarioDao();
+        TecnicoDao dao = new TecnicoDao();
         dao.insereFuncio(funcionario);
         JOptionPane.showMessageDialog(null, "Dados gravados com sucesso!");
         ;

@@ -11,22 +11,23 @@ import java.util.List;
 
 import model.ConnectionFactory;
 import model.Funcionario;
+import model.Usuario;
 
-public class FuncionarioDao {
+public class TecnicoDao {
     private Connection connection;
     
-    public FuncionarioDao(){
+    public TecnicoDao(){
         this.connection = new ConnectionFactory().getConnection();
     }
     
     public void insereFuncio(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionarios (senha,cpf,nome,email,cargo,departamento,perfil,matricula)" +
+        String sql = "INSERT INTO funcionario (senha,cpf,nome,email,cargo,departamento,perfil,matricula)" +
         		" VALUES (?,?,?,?,?,?,?,?)";
         
         try {
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             
-            stmt.setLong(1, funcionario.getSenha());
+            stmt.setString(1, funcionario.getSenha());
             stmt.setString(2, funcionario.getCpf());
             stmt.setString(3, funcionario.getNome());
             stmt.setString(4, funcionario.getEmail());
@@ -46,13 +47,13 @@ public class FuncionarioDao {
 	public List<Funcionario> getListaFuncio() {
 		try {
 			List<Funcionario> funcionarios = new ArrayList<Funcionario>();
-			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM funcionarios");
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM funcionario");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Funcionario  funcionario = new Funcionario ();
+				Funcionario  funcionario = new Usuario();
 				funcionario.setMatricula(rs.getLong("matricula"));
-				funcionario.setSenha(rs.getLong("senha"));
+				funcionario.setSenha(rs.getString("senha"));
 				funcionario.setCpf(rs.getString("cpf"));
 				funcionario.setNome(rs.getString("nome"));
 				funcionario.setEmail(rs.getString("email"));
@@ -70,4 +71,7 @@ public class FuncionarioDao {
 			throw new RuntimeException(e);
 		}
 	}
+    
+    
+    
 }

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import model.Chamado;
 import model.ConnectionFactory;
 
@@ -15,9 +17,8 @@ public class ChamadoDao {
 	}
 
 	public void insereChamado(Chamado chamado) {
-		String sql = "insert into chamados (funcionario_mat,tipo,departamento,urgencia,titulo,descricao)" +
+		String sql = "insert into chamado (funcionario_mat,tipo,departamento,urgencia,titulo,descricao)" +
 				" values (?,?,?,?,?,?)";
-		
 		
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
@@ -26,8 +27,10 @@ public class ChamadoDao {
 			stmt.setString(2, chamado.getTipo());
 			stmt.setString(3, chamado.getDepartamento());
 			stmt.setString(4, chamado.getUrgencia());
-			stmt.setString(5,  chamado.getTitulo());
-			stmt.setString(6,  chamado.getDescricao());
+			stmt.setString(5, chamado.getTitulo());
+			stmt.setString(6, chamado.getDescricao());
+		
+			JOptionPane.showMessageDialog(null, "Matrícula: " + chamado.getFuncionario().getMatricula());
 			
 			stmt.execute();
 			stmt.close();

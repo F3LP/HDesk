@@ -5,9 +5,11 @@
  */
 package model;
 
-public class Funcionario {
+import view.TelaCadChamado;
+
+public abstract class Funcionario {
     private long matricula;
-    private long senha;
+    private String senha;
     private String cpf;
     private String nome;
     private String email;
@@ -18,7 +20,7 @@ public class Funcionario {
     public Funcionario() {	
     }
     
-	public Funcionario(long matricula, long senha, String cpf, String nome, String email, String cargo,
+	public Funcionario(long matricula, String senha, String cpf, String nome, String email, String cargo,
 			String departamento, String perfil) {
 		super();
 		this.matricula = matricula;
@@ -36,10 +38,10 @@ public class Funcionario {
     public void setMatricula(long matricula) {
         this.matricula = matricula;
     }
-    public long getSenha() {
+    public String getSenha() {
         return senha;
     }
-    public void setSenha(long senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
     public String getCpf() {

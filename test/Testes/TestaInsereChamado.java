@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 import model.Chamado;
 import model.Funcionario;
 import model.dao.ChamadoDao;
-import model.dao.FuncionarioDao;
 
 public class TestaInsereChamado {
 	public static void main(String[] args) {

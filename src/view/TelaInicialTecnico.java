@@ -3,22 +3,24 @@ package view;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-import controller.InserirFuncionario;
 import model.Funcionario;
-
-
+import model.Tecnico;
 
 public class TelaInicialTecnico extends javax.swing.JFrame {
     
-    public TelaCadChamado telaCad;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
     
-    public TelaInicialTecnico() {
+    Funcionario autenticado = new Tecnico();
+    
+    public TelaInicialTecnico(Funcionario autenticado) {
+    	this.autenticado = autenticado;
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo( null );
-        telaCad = new TelaCadChamado(this, true);
-        
-        
     }
 
 
@@ -36,7 +38,7 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnCadUsuario = new javax.swing.JButton();
-        btnAbrirChamado = new javax.swing.JButton();
+        btnValidar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -101,6 +103,9 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton2.setText("Ver Detalhes");
+        jButton2.setMaximumSize(new java.awt.Dimension(75, 23));
+        jButton2.setMinimumSize(new java.awt.Dimension(75, 23));
+        jButton2.setPreferredSize(new java.awt.Dimension(75, 23));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -116,21 +121,27 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel2.setText("Bem vindo, " +   ".");
+        jLabel2.setText("Bem vindo, " +   autenticado.getNome() + ".");
 
         btnCadUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnCadUsuario.setText("Cadastrar Usuário");
+        btnCadUsuario.setMaximumSize(new java.awt.Dimension(75, 23));
+        btnCadUsuario.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnCadUsuario.setPreferredSize(new java.awt.Dimension(75, 23));
         btnCadUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadUsuarioActionPerformed(evt);
             }
         });
 
-        btnAbrirChamado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnAbrirChamado.setText("Abrir Chamado");
-        btnAbrirChamado.addActionListener(new java.awt.event.ActionListener() {
+        btnValidar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnValidar.setText("Validar");
+        btnValidar.setMaximumSize(new java.awt.Dimension(75, 23));
+        btnValidar.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnValidar.setPreferredSize(new java.awt.Dimension(75, 23));
+        btnValidar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirChamadoActionPerformed(evt);
+                btnValidarActionPerformed(evt);
             }
         });
 
@@ -145,29 +156,29 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCadUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAbrirChamado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(13, 13, 13))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHistorico)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)))
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4))
+                            .addComponent(lblHistorico))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCadUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnValidar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(13, 13, 13))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(348, 348, 348)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(374, 374, 374))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,24 +193,24 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
+                .addGap(13, 13, 13)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnValidar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCadUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAbrirChamado, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(btnCadUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(25, 25, 25)
-                .addComponent(lblHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                .addGap(4, 4, 4)
+                .addComponent(lblHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,15 +247,13 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         new TelaHistorico(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_lblHistoricoMouseClicked
 
-    private void btnAbrirChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirChamadoActionPerformed
-    	//telaCad.tfMatricula.setText("0000000");
-    	telaCad.setVisible(true);
+    private void btnValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarActionPerformed
+ 
         
-    }//GEN-LAST:event_btnAbrirChamadoActionPerformed
+    }//GEN-LAST:event_btnValidarActionPerformed
 
     private void btnCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadUsuarioActionPerformed
-        new TelaCadUsuario(this, true).setVisible(true);
-        
+        new TelaCadUsuario(this, true).setVisible(true); 
     }//GEN-LAST:event_btnCadUsuarioActionPerformed
 
     /**
@@ -277,15 +286,15 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaInicialTecnico().setVisible(true);
+             //   new TelaInicialTecnico().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAbrirChamado;
     private javax.swing.JButton btnCadUsuario;
     private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnValidar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

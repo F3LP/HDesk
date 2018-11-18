@@ -8,6 +8,10 @@ package view;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import model.Funcionario;
+import model.Usuario;
 
 /**
  *
@@ -16,9 +20,18 @@ import javax.swing.JFrame;
 public class TelaInicialUsuario extends javax.swing.JFrame {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Creates new form TelaAberturaChamado
      */
-    public TelaInicialUsuario() {
+
+	Funcionario autenticado = new Usuario();
+	TelaCadChamado telaChamado;
+
+	public TelaInicialUsuario(Funcionario autenticado) {
+		this.autenticado = autenticado;
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo( null );
@@ -44,10 +57,11 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel("Bem vindo, " + autenticado.getNome() + ".");
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+       
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Help Desk University");
         setMinimumSize(new java.awt.Dimension(450, 450));
@@ -116,6 +130,11 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton1.setText("Visualizar Detalhes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnSair.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnSair.setText("Sair");
@@ -125,7 +144,7 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Bem vindo, " +   ".");
+        //jLabel3.setText("Bem vindo, " + autenticado.getNome());
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logo.png"))); // NOI18N
 
@@ -134,21 +153,13 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(308, 308, 308)
-                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnChamado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnChamado))
                         .addGap(294, 294, 294)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,6 +172,10 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addGap(24, 24, 24))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(306, 306, 306)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,8 +201,8 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
 
@@ -218,12 +233,19 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChamadoActionPerformed
-        new TelaCadChamado(this, rootPaneCheckingEnabled).setVisible(true);
+        telaChamado = new TelaCadChamado(this, rootPaneCheckingEnabled);
+        telaChamado.autenticado = autenticado;
+        telaChamado.tfMatricula.setText(String.valueOf(autenticado.getMatricula()));
+        telaChamado.setVisible(true);
     }//GEN-LAST:event_btnChamadoActionPerformed
 
     private void lblHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoricoMouseClicked
             new TelaHistorico(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_lblHistoricoMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,9 +276,10 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new TelaInicialUsuario().setVisible(true);
-        });
+//        java.awt.EventQueue.invokeLater(() -> {
+//        
+//            new TelaInicialUsuario(autenticado).setVisible(true);
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

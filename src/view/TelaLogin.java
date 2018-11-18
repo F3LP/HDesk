@@ -5,15 +5,18 @@
  */
 package view;
 
+import controller.ControleAutenticacao;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Felipe
  */
 public class TelaLogin extends javax.swing.JFrame {
-
+	   
     /**
      * Creates new form TelaLogin
      */
@@ -90,6 +93,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton1.setText("Entrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         chbLogin.setBackground(new java.awt.Color(152, 202, 239));
         chbLogin.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
@@ -178,6 +186,11 @@ public class TelaLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_chbLoginActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    	dispose();
+    	new ControleAutenticacao(this, getTfMatricula(), getTfSenha());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -208,8 +221,8 @@ public class TelaLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaLogin().setVisible(true);
-
+         	   TelaLogin telaLogin = new TelaLogin();
+         	   telaLogin.setVisible(true);
             }
         });
     }
@@ -224,4 +237,15 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JTextField tfMatricula;
     private javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables
+	  
+    public JTextField getTfMatricula() {
+		return tfMatricula;
+	}
+
+	public JPasswordField getTfSenha() {
+		return tfSenha;
+	}
+
+    
+    
 }
