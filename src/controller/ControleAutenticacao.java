@@ -28,8 +28,6 @@ public class ControleAutenticacao {
 		List<Funcionario> funcionarios = dao.getListaFuncio();
 
 		try {
-		
-		
 			for (Funcionario funcionario : funcionarios) {
 			if (funcionario.getMatricula() == Long.parseLong(tfMatricula.getText()) && 
 					funcionario.getSenha().equals(password)) {

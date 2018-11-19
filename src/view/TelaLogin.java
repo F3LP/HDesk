@@ -37,12 +37,12 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
-        tfMatricula = new javax.swing.JTextField();
         tfSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         chbLogin = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
+        tfMatricula = new javax.swing.JFormattedTextField();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -66,22 +66,6 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.setFocusable(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(300, 300));
 
-        tfMatricula.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tfMatricula.setForeground(new java.awt.Color(102, 102, 102));
-        tfMatricula.setText("Matrícula");
-        tfMatricula.setToolTipText("");
-        tfMatricula.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        tfMatricula.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tfMatriculaMousePressed(evt);
-            }
-        });
-        tfMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfMatriculaActionPerformed(evt);
-            }
-        });
-
         tfSenha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tfSenha.setForeground(new java.awt.Color(102, 102, 102));
         tfSenha.setText("Senha");
@@ -102,6 +86,7 @@ public class TelaLogin extends javax.swing.JFrame {
         chbLogin.setBackground(new java.awt.Color(152, 202, 239));
         chbLogin.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         chbLogin.setText("Mostrar");
+        chbLogin.setMargin(new java.awt.Insets(0, 0, 0, 0));
         chbLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chbLoginActionPerformed(evt);
@@ -110,53 +95,71 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logo.png"))); // NOI18N
 
+        tfMatricula.setForeground(new java.awt.Color(109, 109, 109));
+        try {
+            tfMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("Matrícula")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tfMatricula.setText("Matrícula");
+        tfMatricula.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tfMatricula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfMatriculaMouseClicked(evt);
+            }
+        });
+        tfMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfMatriculaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jLabel2)
+                .addGap(82, 82, 82)
+                .addComponent(jLabel1))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel2)
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(chbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(tfSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(jButton1))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(37, 37, 37)
+                .addGap(34, 34, 34)
                 .addComponent(tfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chbLogin)
-                .addGap(27, 27, 27)
+                .addGap(39, 39, 39)
                 .addComponent(jButton1)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,14 +173,6 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfMatriculaActionPerformed
 
-    private void tfMatriculaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfMatriculaMousePressed
-        tfMatricula.setText("");
-    }//GEN-LAST:event_tfMatriculaMousePressed
-
-    private void tfSenhaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfSenhaMousePressed
-        tfSenha.setText("");
-    }//GEN-LAST:event_tfSenhaMousePressed
-
     private void chbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbLoginActionPerformed
         if(chbLogin.isSelected()){
             tfSenha.setEchoChar((char)0);
@@ -187,9 +182,22 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_chbLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    	dispose();
-    	new ControleAutenticacao(this, getTfMatricula(), getTfSenha());
+        dispose();
+        new ControleAutenticacao(this, getTfMatricula(), getTfSenha());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tfSenhaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfSenhaMousePressed
+        tfSenha.setText("");
+    }//GEN-LAST:event_tfSenhaMousePressed
+
+    private void tfMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfMatriculaMouseClicked
+        tfMatricula.setText("");
+        try {
+            tfMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_tfMatriculaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -234,7 +242,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField tfMatricula;
+    private javax.swing.JFormattedTextField tfMatricula;
     private javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables
 	  

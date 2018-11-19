@@ -247,6 +247,7 @@ public class TelaCadChamado extends javax.swing.JDialog {
 
     private void lblVoltarChamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltarChamMouseClicked
         dispose();
+        new TelaInicialUsuario(autenticado).setVisible(true);;
     }//GEN-LAST:event_lblVoltarChamMouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed

@@ -1,12 +1,15 @@
 package controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.swing.JOptionPane;
 
 import model.Chamado;
 import model.Funcionario;
-import model.Usuario;
 import model.dao.ChamadoDao;
-import model.dao.TecnicoDao;
 import view.TelaCadChamado;
 
 public class InserirChamado {
@@ -20,6 +23,7 @@ public class InserirChamado {
 		chamado.setTitulo(cadDialog.tfTitulo.getText());
 		chamado.setDescricao(cadDialog.tfDescricao.getText());
 		chamado.setFuncionario(funcionario);
+		chamado.setDtAbertura(Calendar.getInstance());
 			
 		ChamadoDao dao = new ChamadoDao();
 		dao.insereChamado(chamado);
@@ -29,9 +33,7 @@ public class InserirChamado {
 		cadDialog.cbUrgencia.setSelectedIndex(0);
 		cadDialog.tfTitulo.setText("");
 		cadDialog.tfDescricao.setText("");
-		
-		JOptionPane.showMessageDialog(null, "Funcionario:\n" + funcionario.getNome() + "\n" + funcionario.getMatricula());
-		
+				
 		JOptionPane.showMessageDialog(null, "Seu chamado foi registrado!");
 	}
 	

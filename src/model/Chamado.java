@@ -10,7 +10,8 @@ public class Chamado {
     private String urgencia;
     private String titulo;
     private String descricao;
-    private Calendar dtAbertuta;
+    private String status = "Pendente";
+	private Calendar dtAbertura;
     private Calendar dtAtendimento;
     private Calendar dtConclusao;
     
@@ -57,11 +58,11 @@ public class Chamado {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Calendar getDtAbertuta() {
-		return dtAbertuta;
+	public Calendar getDtAbertura() {
+		return dtAbertura;
 	}
-	public void setDtAbertuta(Calendar dtAbertuta) {
-		this.dtAbertuta = dtAbertuta;
+	public void setDtAbertura(Calendar dtAbertura) {
+		this.dtAbertura = dtAbertura;
 	}
 	public Calendar getDtAtendimento() {
 		return dtAtendimento;
@@ -75,10 +76,11 @@ public class Chamado {
 	public void setDtConclusao(Calendar dtConclusao) {
 		this.dtConclusao = dtConclusao;
 	}
-    
-    
-    
-
-
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
     
 }

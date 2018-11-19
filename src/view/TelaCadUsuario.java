@@ -9,12 +9,14 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.text.MaskFormatter;
-
 import controller.InserirFuncionario;
 
 public class TelaCadUsuario extends javax.swing.JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public TelaCadUsuario(JFrame jFrame, boolean modal) {
 		super(jFrame, modal);
 		initComponents();
