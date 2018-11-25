@@ -6,10 +6,14 @@
 package view;
 
 import controller.ControleAutenticacao;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
+import java.util.Collections;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -44,6 +48,8 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tfMatricula = new javax.swing.JFormattedTextField();
 
+        tfMatricula.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.<KeyStroke>emptySet());
+        
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -74,12 +80,22 @@ public class TelaLogin extends javax.swing.JFrame {
                 tfSenhaMousePressed(evt);
             }
         });
+        tfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfSenhaKeyPressed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
             }
         });
 
@@ -111,6 +127,11 @@ public class TelaLogin extends javax.swing.JFrame {
         tfMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfMatriculaActionPerformed(evt);
+            }
+        });
+        tfMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfMatriculaKeyPressed(evt);
             }
         });
 
@@ -169,6 +190,8 @@ public class TelaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void tfMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMatriculaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfMatriculaActionPerformed
@@ -191,13 +214,33 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_tfSenhaMousePressed
 
     private void tfMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfMatriculaMouseClicked
-        tfMatricula.setText("");
+        //tfMatricula.setText("");
         try {
             tfMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_tfMatriculaMouseClicked
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+            dispose();
+            new ControleAutenticacao(this, getTfMatricula(), getTfSenha());
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void tfMatriculaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfMatriculaKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_TAB){            
+            tfSenha.setText("");
+            tfSenha.requestFocus();
+        }
+    }//GEN-LAST:event_tfMatriculaKeyPressed
+
+    private void tfSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSenhaKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){  
+            dispose();
+            new ControleAutenticacao(this, getTfMatricula(), getTfSenha());
+        }
+    }//GEN-LAST:event_tfSenhaKeyPressed
 
     /**
      * @param args the command line arguments

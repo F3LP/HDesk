@@ -6,7 +6,12 @@
 package view;
 
 import java.awt.Color;
+
 import javax.swing.ImageIcon;
+
+import controller.PreencheTabela;
+import model.Funcionario;
+import model.Usuario;
 
 /**
  *
@@ -14,16 +19,28 @@ import javax.swing.ImageIcon;
  */
 public class TelaHistorico extends javax.swing.JDialog {
 
+	Funcionario autenticado;
+	PreencheTabela preTabela = new PreencheTabela();
     /**
      * Creates new form Teste
      */
-    public TelaHistorico(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+//    public TelaHistorico(java.awt.Frame parent, boolean modal) {
+//    	super(parent, modal);
+//    	autenticado = new Usuario();
+//        initComponents();
+//        new PreencheTabela().preencheTabelaUsuario(tabela, autenticado);;
+//        setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
+//        setLocationRelativeTo( null );
+//    }
+  
+    public TelaHistorico(java.awt.Frame parent, boolean modal, Funcionario autenticado) {
+    	super(parent, modal);
+    	this.autenticado = autenticado;
         initComponents();
+        new PreencheTabela().preencheTabelaHistoricoUsuario(tabela, autenticado);;
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo( null );
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +53,7 @@ public class TelaHistorico extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         btnVisualizarHist = new javax.swing.JButton();
         lblVoltaHist = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -51,52 +68,26 @@ public class TelaHistorico extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Histórico de Chamados");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Protocolo", "Solicitante", "Departamento", "Urgência", "Título", "Téc. Responsável", "Data de Abertura", "Data de Encerramento"
+                "Status", "Protocolo", "Solicitante", "Departamento", "Urgência", "Título", "Téc. Responsável", "Data de Abertura", "Data de Atendimento", "Data de Encerramento"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, true, false, false, false, true, true
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			boolean[] canEdit = new boolean [] {
+                true, true, false, true, false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela);
 
         btnVisualizarHist.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnVisualizarHist.setText("Visualizar Detalhes");
@@ -133,7 +124,7 @@ public class TelaHistorico extends javax.swing.JDialog {
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblVoltaHist)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 642, Short.MAX_VALUE)
                         .addComponent(btnVisualizarHist))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -182,7 +173,8 @@ public class TelaHistorico extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVisualizarHistActionPerformed
 
     private void lblVoltaHistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltaHistMouseClicked
-        dispose();
+    	dispose();
+        new TelaInicialTecnico(autenticado).setVisible(true);;
     }//GEN-LAST:event_lblVoltaHistMouseClicked
 
     private void lblVoltaHistMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltaHistMouseEntered
@@ -222,18 +214,18 @@ public class TelaHistorico extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TelaHistorico dialog = new TelaHistorico(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                TelaHistorico dialog = new TelaHistorico(new javax.swing.JFrame(), true, getAutenticado);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -243,7 +235,7 @@ public class TelaHistorico extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblVoltaHist;
+    public javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

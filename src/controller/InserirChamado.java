@@ -1,12 +1,7 @@
 package controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
 import javax.swing.JOptionPane;
-
 import model.Chamado;
 import model.Funcionario;
 import model.dao.ChamadoDao;
@@ -22,7 +17,7 @@ public class InserirChamado {
 		chamado.setUrgencia((String)cadDialog.cbUrgencia.getSelectedItem());
 		chamado.setTitulo(cadDialog.tfTitulo.getText());
 		chamado.setDescricao(cadDialog.tfDescricao.getText());
-		chamado.setFuncionario(funcionario);
+		chamado.setUsuario(funcionario);
 		chamado.setDtAbertura(Calendar.getInstance());
 			
 		ChamadoDao dao = new ChamadoDao();

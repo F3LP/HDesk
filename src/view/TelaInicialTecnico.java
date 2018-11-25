@@ -2,9 +2,11 @@ package view;
 
 import java.awt.Color;
 import javax.swing.ImageIcon;
-
+import controller.PreencheTabela;
+import javax.swing.JOptionPane;
 import model.Funcionario;
 import model.Tecnico;
+import model.dao.ChamadoDao;
 
 public class TelaInicialTecnico extends javax.swing.JFrame {
     
@@ -12,29 +14,32 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-    
+	
+	PreencheTabela preTab;
+	
+	TelaHistorico telaHist;
     Funcionario autenticado = new Tecnico();
     
     public TelaInicialTecnico(Funcionario autenticado) {
     	this.autenticado = autenticado;
         initComponents();
+        preTab = new PreencheTabela();
+        preTab.preencheTabelaTecnico(tabela, autenticado);
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo( null );
     }
 
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         lblHistorico = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAtender = new javax.swing.JButton();
+        btnDetalhes = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnCadUsuario = new javax.swing.JButton();
@@ -51,37 +56,31 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Chamados Abertos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Protocolo", "Data de Abertura", "Solicitante", "Departamento", "Urgência", "Título", "Téc. Responsável"
+                "Status", "Protocolo", "Data de Abertura", "Urgência", "Tipo", "Solicitante", "Departamento", "Título", "Téc. Responsável"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, false, true, false, false, false
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabela);
 
         lblHistorico.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lblHistorico.setForeground(new java.awt.Color(0, 51, 255));
@@ -98,17 +97,22 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton1.setText("Atender");
-
-        jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton2.setText("Ver Detalhes");
-        jButton2.setMaximumSize(new java.awt.Dimension(75, 23));
-        jButton2.setMinimumSize(new java.awt.Dimension(75, 23));
-        jButton2.setPreferredSize(new java.awt.Dimension(75, 23));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAtender.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnAtender.setText("Atender");
+        btnAtender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAtenderActionPerformed(evt);
+            }
+        });
+
+        btnDetalhes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnDetalhes.setText("Ver Detalhes");
+        btnDetalhes.setMaximumSize(new java.awt.Dimension(75, 23));
+        btnDetalhes.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnDetalhes.setPreferredSize(new java.awt.Dimension(75, 23));
+        btnDetalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetalhesActionPerformed(evt);
             }
         });
 
@@ -121,7 +125,7 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel2.setText("Bem vindo, " +   autenticado.getNome() + ".");
+        jLabel2.setText("Bem vindo, " +  autenticado.getNome() + ".");
 
         btnCadUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnCadUsuario.setText("Cadastrar Usuário");
@@ -171,9 +175,9 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnCadUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAtender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnValidar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(13, 13, 13))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(348, 348, 348)
@@ -198,13 +202,13 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnValidar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnValidar, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(btnCadUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAtender, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                        .addGap(11, 11, 11)
+                        .addComponent(btnCadUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(25, 25, 25)
                 .addComponent(lblHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -235,16 +239,19 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         lblHistorico.setForeground(Color.BLUE);
     }//GEN-LAST:event_lblHistoricoMouseExited
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnDetalhesActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void lblHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoricoMouseClicked
-        new TelaHistorico(this, rootPaneCheckingEnabled).setVisible(true);
+    	telaHist = new TelaHistorico(this, rootPaneCheckingEnabled, autenticado);
+    	telaHist.preTabela.preencheTabelaHistoricoUsuario(tabela, autenticado);
+    	dispose();
+    	telaHist.setVisible(true);
     }//GEN-LAST:event_lblHistoricoMouseClicked
 
     private void btnValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarActionPerformed
@@ -253,9 +260,25 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnValidarActionPerformed
 
     private void btnCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadUsuarioActionPerformed
-        new TelaCadUsuario(this, true).setVisible(true); 
+        dispose();
+    	new TelaCadUsuario(this, true).setVisible(true);         
     }//GEN-LAST:event_btnCadUsuarioActionPerformed
 
+    public long tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        int linha;
+        linha = tabela.getSelectedRow();      
+        long prot = (long) tabela.getModel().getValueAt(linha, 1);
+        return prot;
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void btnAtenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtenderActionPerformed
+        new ChamadoDao().atualizaAtender(autenticado, tabelaMouseClicked(null));
+        preTab.preencheTabelaTecnico(tabela, autenticado);
+    }
+    //GEN-LAST:event_btnAtenderActionPerformed
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -286,25 +309,24 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-             //   new TelaInicialTecnico().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtender;
     private javax.swing.JButton btnCadUsuario;
+    private javax.swing.JButton btnDetalhes;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnValidar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblHistorico;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 
 }

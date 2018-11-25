@@ -3,7 +3,8 @@ package model;
 import java.util.Calendar;
 
 public class Chamado {
-    private Funcionario funcionario;
+    private Funcionario usuario;
+    private Funcionario tecnico;
     private long protocolo;
     private String tipo;
     private String departamento;
@@ -16,11 +17,17 @@ public class Chamado {
     private Calendar dtConclusao;
     
     
-	public Funcionario getFuncionario() {
-		return funcionario;
+	public Funcionario getUsuario() {
+		return usuario;
 	}
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+	public void setUsuario(Funcionario usuario) {
+		this.usuario = usuario;
+	}
+	public Funcionario getTecnico() {
+		return tecnico;
+	}
+	public void setTecnico(Funcionario tecnico) {
+		this.tecnico = tecnico;
 	}
 	public long getProtocolo() {
 		return protocolo;

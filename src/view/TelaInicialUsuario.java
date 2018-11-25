@@ -28,11 +28,12 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
 
 	Funcionario autenticado = new Usuario();
 	TelaCadChamado telaChamado;
+	TelaHistorico telaHist;
 
 	public TelaInicialUsuario(Funcionario autenticado) {	
 		this.autenticado = autenticado;
         initComponents();
-        new PreencheTabela(tabela, autenticado);
+        new PreencheTabela().preencheTabelaUsuario(tabela, autenticado);
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo( null );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,27 +98,16 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null},
-//                {null, null, null, null, null, null}
             },
             new String [] {
                 "Status", "Protocolo", "Tipo", "Título", "Urgência", "Data de Abertura"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			boolean[] canEdit = new boolean [] {
                 false, false, true, false, false, false
             };
 
@@ -240,8 +230,11 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
  
     }//GEN-LAST:event_btnChamadoActionPerformed
 
-    private void lblHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoricoMouseClicked
-            new TelaHistorico(this, rootPaneCheckingEnabled).setVisible(true);
+    private void lblHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoricoMouseClicked         
+    	telaHist = new TelaHistorico(this, rootPaneCheckingEnabled, autenticado);
+    	telaHist.preTabela.preencheTabelaHistoricoUsuario(tabela, autenticado);
+    	dispose();
+    	telaHist.setVisible(true);
     }//GEN-LAST:event_lblHistoricoMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
