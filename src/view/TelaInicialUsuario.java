@@ -25,7 +25,7 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
 	/**
      * Creates new form TelaAberturaChamado
      */
-
+	PreencheTabela preTabela = new PreencheTabela();
 	Funcionario autenticado = new Usuario();
 	TelaCadChamado telaChamado;
 	TelaHistorico telaHist;

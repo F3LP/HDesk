@@ -1,9 +1,13 @@
 package view;
 
 import java.awt.Color;
+import java.sql.Date;
+import java.util.Calendar;
+
 import javax.swing.ImageIcon;
+
 import controller.PreencheTabela;
-import javax.swing.JOptionPane;
+import model.Chamado;
 import model.Funcionario;
 import model.Tecnico;
 import model.dao.ChamadoDao;
@@ -249,7 +253,7 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 
     private void lblHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoricoMouseClicked
     	telaHist = new TelaHistorico(this, rootPaneCheckingEnabled, autenticado);
-    	telaHist.preTabela.preencheTabelaHistoricoUsuario(tabela, autenticado);
+    	telaHist.preTabela.preencheTabelaHistoricoTec(tabela, autenticado);
     	dispose();
     	telaHist.setVisible(true);
     }//GEN-LAST:event_lblHistoricoMouseClicked
@@ -272,12 +276,32 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnAtenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtenderActionPerformed
-        new ChamadoDao().atualizaAtender(autenticado, tabelaMouseClicked(null));
+        Chamado chamado = new Chamado();
+		chamado.setDtAtendimento(Calendar.getInstance());
+    	new ChamadoDao().atualizaAtender(autenticado, tabelaMouseClicked(null), chamado);        
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                },
+                new String [] {
+                    "Status", "Protocolo", "Data de Abertura", "Urgência", "Tipo", "Solicitante", "Departamento", "Título", "Téc. Responsável"
+                }
+            ) {
+                /**
+    			 * 
+    			 */
+    			private static final long serialVersionUID = 1L;
+    			boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false, false, false, false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
         preTab.preencheTabelaTecnico(tabela, autenticado);
-    }
     //GEN-LAST:event_btnAtenderActionPerformed
     
-    
+    }
     
     /**
      * @param args the command line arguments

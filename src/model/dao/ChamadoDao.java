@@ -203,13 +203,14 @@ public class ChamadoDao {
 		}
 	}
 	
-	public void atualizaAtender(Funcionario autenticado, Long prot) {
-		String sql = "UPDATE chamado SET tecnico=? WHERE protocolo=?";
+	public void atualizaAtender(Funcionario autenticado, Long prot, Chamado chamado) {
+		String sql = "UPDATE chamado SET tecnico=?,dtAtendimento=? WHERE protocolo=?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setLong(1, autenticado.getMatricula());
-			stmt.setLong(2, prot);	
+			stmt.setDate(2, new Date(chamado.getDtAtendimento().getTimeInMillis()));
+			stmt.setLong(3, prot);	
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -224,6 +225,50 @@ public class ChamadoDao {
 				}
 			  }
 			JOptionPane.showMessageDialog(null, "Registro de inicio de Atendimento incluído.");
+		}
+	}
+	
+	public List<Chamado> getListaChamadoHistoricoCompleta(Funcionario funcionario) {	
+		Funcionario solicitante = new Usuario();
+		long matricula;
+		try {
+			List<Chamado> chamados = new ArrayList<Chamado>();
+			
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT status,protocolo,departamento," + 
+					"urgencia,titulo,dtAbertura,dtAtendimento,dtConclusao,funcionario_mat FROM chamado WHERE status = 'Encerrado'");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				solicitante.setMatricula(rs.getLong("funcionario_mat"));
+				Chamado chamado = new Chamado();
+				chamado.setStatus(rs.getString("status"));
+				chamado.setProtocolo(rs.getLong("protocolo"));
+				chamado.setDepartamento(rs.getString("departamento"));
+				chamado.setUrgencia(rs.getString("urgencia"));
+				chamado.setTitulo(rs.getString("titulo"));
+				chamado.setStatus(rs.getString("status"));
+				chamado.setUsuario(solicitante);
+				
+				Calendar dtAbertura = Calendar.getInstance();
+				dtAbertura.setTime(rs.getDate("dtAbertura"));
+				chamado.setDtAbertura(dtAbertura);
+				
+				Calendar dtAtendimento = Calendar.getInstance();
+				dtAtendimento.setTime(rs.getDate("dtAtendimento"));
+				chamado.setDtAtendimento(dtAtendimento);
+				
+				Calendar dtConclusao = Calendar.getInstance();
+				dtConclusao.setTime(rs.getDate("dtConclusao"));
+				chamado.setDtConclusao(dtConclusao);
+							
+				chamados.add(chamado);				
+			}
+			rs.close();
+			stmt.close();
+			return chamados;
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }
