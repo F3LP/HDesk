@@ -3,7 +3,9 @@ package Testes;
 import java.util.List;
 
 import model.Chamado;
+import model.Funcionario;
 import model.dao.ChamadoDao;
+import model.dao.TecnicoDao;
 
 public class GetListaChamado {
 
@@ -24,9 +26,8 @@ public class GetListaChamado {
 					System.out.println("Data de Abertura: " + 
 							chamado.getDtAbertura().getTime() + "\n");
 				}
-			
-		
-
+				
+				
 	}
 
 }

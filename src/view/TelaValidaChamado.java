@@ -5,11 +5,13 @@
  */
 package view;
 
+import view.*;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
 
 import controller.InserirChamado;
+import model.Chamado;
 import model.Funcionario;
 import model.Usuario;
 
@@ -17,12 +19,17 @@ import model.Usuario;
  *
  * @author Felipe
  */
-public class TelaCadChamado extends javax.swing.JDialog {
+public class TelaValidaChamado extends javax.swing.JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Funcionario autenticado = new Usuario();
+	Chamado chamado = new Chamado();
 	
-    public TelaCadChamado(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);            
+    public TelaValidaChamado(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);      
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo( null );
@@ -41,6 +48,7 @@ public class TelaCadChamado extends javax.swing.JDialog {
 
         jLabel3 = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel7 = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -59,6 +67,9 @@ public class TelaCadChamado extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         cbTipo = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        panelValidacao = new javax.swing.JPanel();
+        jRvalidar = new javax.swing.JRadioButton();
+        jRinvalidar = new javax.swing.JRadioButton();
 
         jToolBar1.setRollover(true);
 
@@ -82,7 +93,9 @@ public class TelaCadChamado extends javax.swing.JDialog {
         tfMatricula.setBackground(new java.awt.Color(224, 221, 221));
         tfMatricula.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        cbDepartamento.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administração", "Diretoria", "Financeiro", "Marketing", "RH", "Vendas" }));
+        cbDepartamento.setEnabled(false);
         cbDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbDepartamentoActionPerformed(evt);
@@ -93,8 +106,11 @@ public class TelaCadChamado extends javax.swing.JDialog {
         jLabel41.setText("Urgência");
 
         tfTitulo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tfTitulo.setEnabled(false);
 
+        cbUrgencia.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbUrgencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Baixa", "Média", "Alta" }));
+        cbUrgencia.setEnabled(false);
 
         lblVoltarCham.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lblVoltarCham.setForeground(new java.awt.Color(0, 51, 255));
@@ -122,14 +138,54 @@ public class TelaCadChamado extends javax.swing.JDialog {
         jLabel42.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel42.setText("Matrícula");
 
+        tfDescricao.setEnabled(false);
         jScrollPane7.setViewportView(tfDescricao);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Tipo");
 
+        cbTipo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Dúvida", "Requisição", " " }));
+        cbTipo.setEnabled(false);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logo.png"))); // NOI18N
+
+        panelValidacao.setBackground(new java.awt.Color(152, 202, 239));
+        panelValidacao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jRvalidar.setBackground(new java.awt.Color(204, 255, 204));
+        buttonGroup1.add(jRvalidar);
+        jRvalidar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jRvalidar.setSelected(true);
+        jRvalidar.setText("Validar");
+        jRvalidar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jRinvalidar.setBackground(new java.awt.Color(255, 102, 102));
+        buttonGroup1.add(jRinvalidar);
+        jRinvalidar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jRinvalidar.setText("Invalidar");
+        jRinvalidar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout panelValidacaoLayout = new javax.swing.GroupLayout(panelValidacao);
+        panelValidacao.setLayout(panelValidacaoLayout);
+        panelValidacaoLayout.setHorizontalGroup(
+            panelValidacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelValidacaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRvalidar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRinvalidar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelValidacaoLayout.setVerticalGroup(
+            panelValidacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelValidacaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelValidacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jRvalidar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jRinvalidar, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -140,7 +196,7 @@ public class TelaCadChamado extends javax.swing.JDialog {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel42)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(tfMatricula)
                         .addGap(184, 184, 184)))
@@ -150,32 +206,36 @@ public class TelaCadChamado extends javax.swing.JDialog {
                 .addGap(18, 18, 18))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfTitulo)
-                    .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane7))
-                .addGap(34, 34, 34))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(236, 236, 236)
-                .addComponent(jButton7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel39)
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel41))
-                    .addComponent(jLabel37)
-                    .addComponent(lblVoltarCham)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(72, 72, 72)
-                        .addComponent(cbUrgencia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel39)
+                                .addGap(93, 93, 93)
+                                .addComponent(jLabel41))
+                            .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(72, 72, 72)
+                                .addComponent(cbUrgencia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(lblVoltarCham)
+                                .addGap(158, 158, 158)
+                                .addComponent(jButton7)
+                                .addGap(201, 201, Short.MAX_VALUE))
+                            .addComponent(tfTitulo)
+                            .addComponent(jScrollPane7)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(panelValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(34, 34, 34))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,12 +272,17 @@ public class TelaCadChamado extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel37)
                 .addGap(5, 5, 5)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                .addGap(10, 10, 10)
-                .addComponent(lblVoltarCham)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7)
-                .addGap(38, 38, 38))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(panelValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(jButton7)
+                        .addGap(38, 38, 38))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(lblVoltarCham)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -228,7 +293,7 @@ public class TelaCadChamado extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
         );
 
         pack();
@@ -252,7 +317,7 @@ public class TelaCadChamado extends javax.swing.JDialog {
     }//GEN-LAST:event_lblVoltarChamMouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        new InserirChamado(this, autenticado);
+        //new InserirChamado(this, autenticado);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
@@ -272,14 +337,18 @@ public class TelaCadChamado extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaValidaChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaValidaChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaValidaChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaValidaChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -287,7 +356,7 @@ public class TelaCadChamado extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() -> {
-            TelaCadChamado dialog = new TelaCadChamado(new javax.swing.JFrame(), true);
+            TelaValidaChamado dialog = new TelaValidaChamado(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -299,6 +368,7 @@ public class TelaCadChamado extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     public javax.swing.JComboBox<String> cbDepartamento;
     public javax.swing.JComboBox<String> cbTipo;
     public javax.swing.JComboBox<String> cbUrgencia;
@@ -313,11 +383,14 @@ public class TelaCadChamado extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JRadioButton jRinvalidar;
+    private javax.swing.JRadioButton jRvalidar;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblVoltarCham;
+    private javax.swing.JPanel panelValidacao;
     public javax.swing.JTextPane tfDescricao;
-    public javax.swing.JTextField tfMatricula;
+    private javax.swing.JTextField tfMatricula;
     public javax.swing.JTextField tfTitulo;
     // End of variables declaration//GEN-END:variables
 }

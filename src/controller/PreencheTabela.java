@@ -18,8 +18,8 @@ public class PreencheTabela {
 	// Preenche Tabela da Tela Inicial do Usuário
 	public void preencheTabelaUsuario(JTable tabela, Funcionario autenticado) {	
 		DefaultTableModel model = (DefaultTableModel) tabela.getModel();		
-		ChamadoDao dao = new ChamadoDao();
-		List<Chamado> chamados = dao.getListaChamado(autenticado);
+            ChamadoDao dao = new ChamadoDao();
+            List<Chamado> chamados = dao.getListaChamado(autenticado);
 		Object rowData[] = new Object[6];
  			
 		for (int i = 0; i < chamados.size(); i++) {

@@ -230,12 +230,12 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
  
     }//GEN-LAST:event_btnChamadoActionPerformed
 
-    private void lblHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoricoMouseClicked         
+    private void lblHistoricoMouseClicked(java.awt.event.MouseEvent evt) {                                                   
     	telaHist = new TelaHistorico(this, rootPaneCheckingEnabled, autenticado);
     	telaHist.preTabela.preencheTabelaHistoricoUsuario(tabela, autenticado);
     	dispose();
     	telaHist.setVisible(true);
-    }//GEN-LAST:event_lblHistoricoMouseClicked
+    }                                         
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         

@@ -5,18 +5,20 @@
  */
 package view;
 
+import view.*;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
 
 import controller.PreencheTabela;
 import model.Funcionario;
+import model.Usuario;
 
 /**
  *
  * @author Felipe
  */
-public class TelaHistorico extends javax.swing.JDialog {
+public class TelaHistoricoTec extends javax.swing.JDialog {
 
 	Funcionario autenticado;
 	PreencheTabela preTabela = new PreencheTabela();
@@ -32,11 +34,11 @@ public class TelaHistorico extends javax.swing.JDialog {
 //        setLocationRelativeTo( null );
 //    }
   
-    public TelaHistorico(java.awt.Frame parent, boolean modal, Funcionario autenticado) {
+    public TelaHistoricoTec(java.awt.Frame parent, boolean modal, Funcionario autenticado) {
     	super(parent, modal);
     	this.autenticado = autenticado;
         initComponents();
-        new PreencheTabela().preencheTabelaHistoricoUsuario(tabela, autenticado);;
+        new PreencheTabela().preencheTabelaHistoricoTec(tabela, autenticado);;
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo( null );
     }
@@ -170,7 +172,7 @@ public class TelaHistorico extends javax.swing.JDialog {
 
     private void lblVoltaHistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltaHistMouseClicked
     	dispose();
-        new TelaInicialUsuario(autenticado).setVisible(true);;
+        new TelaInicialTecnico(autenticado).setVisible(true);;
     }//GEN-LAST:event_lblVoltaHistMouseClicked
 
     private void lblVoltaHistMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltaHistMouseEntered
@@ -198,14 +200,78 @@ public class TelaHistorico extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaHistorico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHistoricoTec.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaHistorico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHistoricoTec.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaHistorico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHistoricoTec.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaHistorico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHistoricoTec.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                TelaHistorico dialog = new TelaHistorico(new javax.swing.JFrame(), true, getAutenticado);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                TelaHistorico dialog = new TelaHistorico(new javax.swing.JFrame(), true, getAutenticado);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                TelaHistorico dialog = new TelaHistorico(new javax.swing.JFrame(), true, getAutenticado);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                TelaHistorico dialog = new TelaHistorico(new javax.swing.JFrame(), true, getAutenticado);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
         //</editor-fold>
         //</editor-fold>
 

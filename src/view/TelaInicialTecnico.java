@@ -6,6 +6,7 @@ import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 
+import controller.InvocaTelaValidacao;
 import controller.PreencheTabela;
 import model.Chamado;
 import model.Funcionario;
@@ -21,7 +22,7 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 	
 	PreencheTabela preTab;
 	
-	TelaHistorico telaHist;
+	TelaHistoricoTec telaHist;
     Funcionario autenticado = new Tecnico();
     
     public TelaInicialTecnico(Funcionario autenticado) {
@@ -252,14 +253,14 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void lblHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHistoricoMouseClicked
-    	telaHist = new TelaHistorico(this, rootPaneCheckingEnabled, autenticado);
+    	telaHist = new TelaHistoricoTec(this, rootPaneCheckingEnabled, autenticado);
     	telaHist.preTabela.preencheTabelaHistoricoTec(tabela, autenticado);
     	dispose();
     	telaHist.setVisible(true);
     }//GEN-LAST:event_lblHistoricoMouseClicked
 
     private void btnValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarActionPerformed
- 
+    	InvocaTelaValidacao telaVal = new InvocaTelaValidacao(tabela, this);
         
     }//GEN-LAST:event_btnValidarActionPerformed
 
@@ -277,7 +278,7 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 
     private void btnAtenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtenderActionPerformed
         Chamado chamado = new Chamado();
-		chamado.setDtAtendimento(Calendar.getInstance());
+	chamado.setDtAtendimento(Calendar.getInstance());
     	new ChamadoDao().atualizaAtender(autenticado, tabelaMouseClicked(null), chamado);        
         tabela.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
@@ -299,7 +300,7 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
                 }
             });
         preTab.preencheTabelaTecnico(tabela, autenticado);
-    //GEN-LAST:event_btnAtenderActionPerformed
+//GEN-LAST:event_btnAtenderActionPerformed
     
     }
     
