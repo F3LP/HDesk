@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import model.Chamado;
+import model.Funcionario;
+import model.Tecnico;
 import model.dao.ChamadoDao;
 import view.TelaInicialTecnico;
 import view.TelaValidaChamado;
@@ -19,16 +21,16 @@ import view.TelaValidaChamado;
  */
 public class InvocaTelaValidacao {
 
-	public InvocaTelaValidacao(JTable tabela, TelaInicialTecnico telaTec) {
+	public InvocaTelaValidacao(JTable tabela, TelaInicialTecnico telaTec, Funcionario autenticado) {
 		JTable table = new JTable();
 		table = tabela;
 		long prot = 0;
 		boolean erro = true;
 		int indiceDep = 0;
 		int indiceUrgencia = 0;
-
-
+		
 		int linha;
+		
 		try {
 			linha = tabela.getSelectedRow();
 			prot = (long) tabela.getModel().getValueAt(linha, 1);
@@ -42,8 +44,9 @@ public class InvocaTelaValidacao {
 			ChamadoDao dao = new ChamadoDao();
 			chamado = dao.getChamadoProt(prot);
 		
-			TelaValidaChamado tela = new TelaValidaChamado(telaTec, true);
-			
+			TelaValidaChamado tela = new TelaValidaChamado(telaTec, true, autenticado);
+            tela.setProtoc(prot);
+			tela.tfMatricula.setText(String.valueOf(chamado.getUsuario().getMatricula()));
 			tela.tfTitulo.setText(chamado.getTitulo());
 			tela.tfDescricao.setText(chamado.getDescricao());
 			

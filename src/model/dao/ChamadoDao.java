@@ -53,11 +53,14 @@ public class ChamadoDao {
 			List<Chamado> chamados = new ArrayList<Chamado>();
 
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"SELECT protocolo,tipo,departamento,urgencia,titulo,descricao,status,dtAbertura FROM chamado");
+					"SELECT funcionario_mat,protocolo,tipo,departamento,urgencia,titulo,descricao,status,dtAbertura FROM chamado");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				Chamado chamado = new Chamado();
+				Funcionario usuario = new Usuario();
+				usuario.setMatricula(rs.getLong("funcionario_mat"));
+				chamado.setUsuario(usuario);
 				chamado.setProtocolo(rs.getLong("protocolo"));
 				chamado.setTipo(rs.getString("tipo"));
 				chamado.setDepartamento(rs.getString("departamento"));
@@ -88,7 +91,7 @@ public class ChamadoDao {
 
 			PreparedStatement stmt = this.connection.prepareStatement(
 					"SELECT funcionario_mat,protocolo,tipo,departamento,urgencia,titulo,descricao,status,dtAbertura FROM chamado WHERE funcionario_mat = "
-							+ funcionario.getMatricula() + " AND status = 'Pendente' OR status = 'Aberto'");
+							+ funcionario.getMatricula() + " AND status = 'Pendente' OR status = 'Aberto' OR status = 'Inválido'");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -122,7 +125,7 @@ public class ChamadoDao {
 
 			PreparedStatement stmt = this.connection.prepareStatement("SELECT status,protocolo,departamento,"
 					+ "urgencia,titulo,dtAbertura,dtAtendimento,dtConclusao FROM chamado WHERE funcionario_mat = "
-					+ funcionario.getMatricula() + " AND status = 'Encerrado'");
+					+ funcionario.getMatricula() + " AND status = 'Encerrado' OR status = 'Inválido'");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -166,7 +169,7 @@ public class ChamadoDao {
 			List<Chamado> chamados = new ArrayList<Chamado>();
 
 			PreparedStatement stmt = this.connection.prepareStatement("SELECT tipo,funcionario_mat,status,protocolo,"
-					+ "departamento,urgencia,titulo,dtAbertura,tecnico FROM chamado WHERE status = 'Aberto' OR status = 'Pendente'");
+					+ "departamento,urgencia,titulo,dtAbertura,tecnico FROM chamado WHERE status = 'Aberto' OR status = 'Pendente' OR status = 'Em Atendimento'");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -202,7 +205,7 @@ public class ChamadoDao {
 	}
 
 	public void atualizaAtender(Funcionario autenticado, Long prot, Chamado chamado) {
-		String sql = "UPDATE chamado SET tecnico=?,dtAtendimento=? WHERE protocolo=?";
+		String sql = "UPDATE chamado SET tecnico=?,dtAtendimento=?,status='Em Atendimento' WHERE protocolo=?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = connection.prepareStatement(sql);
@@ -233,7 +236,7 @@ public class ChamadoDao {
 			List<Chamado> chamados = new ArrayList<Chamado>();
 
 			PreparedStatement stmt = this.connection.prepareStatement("SELECT status,protocolo,departamento,"
-					+ "urgencia,titulo,dtAbertura,dtAtendimento,dtConclusao,funcionario_mat FROM chamado WHERE status = 'Encerrado'");
+					+ "urgencia,titulo,dtAbertura,dtAtendimento,dtConclusao,funcionario_mat FROM chamado WHERE status = 'Encerrado' OR status = 'Inválido'");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -275,7 +278,6 @@ public class ChamadoDao {
 		List<Chamado> chamados = dao.getListaChamado();
 		Chamado chamado = new Chamado();
 		for (int i = 0; i < chamados.size(); i++) {
-			//System.out.println(chamados.get(i).getProtocolo());
 			if (chamados.get(i).getProtocolo() == prot) {
 				chamado.setProtocolo(chamados.get(i).getProtocolo());
 				chamado.setTipo(chamados.get(i).getTipo());
@@ -284,10 +286,60 @@ public class ChamadoDao {
 				chamado.setTitulo(chamados.get(i).getTitulo());
 				chamado.setDepartamento(chamados.get(i).getDepartamento());
 				chamado.setDescricao(chamados.get(i).getDescricao());
+				chamado.setUsuario(chamados.get(i).getUsuario());
 			}
 		}
-//		System.out.println(chamado.getProtocolo());
-////		System.out.println(chamado.getTipo());
 		return chamado;
 	}
+        
+        public void atualizaValidar(String verif, Long protoc) {
+		String sql = "UPDATE chamado SET status=? WHERE protocolo=?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, verif);
+            stmt.setLong(2, protoc);
+			stmt.execute();
+			stmt.close();
+			JOptionPane.showMessageDialog(null, "Alteração de Status registrada.");
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
+		}
+	}
+        
+        public void atualizaInvalidar(String verif, Long protoc) {
+    		String sql = "UPDATE chamado SET status=?, dtAtendimento=?, dtConclusao=? WHERE protocolo=?";
+    		Chamado chamado = new Chamado();
+    		PreparedStatement stmt = null;
+    		try {
+    			stmt = connection.prepareStatement(sql);
+    			stmt.setString(1, verif);
+    			stmt.setDate(2, new Date(chamado.getDtAtendimento().getTimeInMillis()));
+    			stmt.setDate(3, new Date(chamado.getDtConclusao().getTimeInMillis()));
+                stmt.setLong(4, protoc);
+    			stmt.execute();
+    			stmt.close();
+    			JOptionPane.showMessageDialog(null, "Alteração de Status registrada.");
+    		} catch (SQLException e) {
+    			throw new RuntimeException(e);
+    		} finally {
+    			if (stmt != null) {
+    				try {
+    					stmt.close();
+    				} catch (SQLException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				}
+    			}			
+    		}
+    	}
 }

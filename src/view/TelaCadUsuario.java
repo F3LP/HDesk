@@ -276,6 +276,7 @@ public class TelaCadUsuario extends javax.swing.JDialog {
 
 	private void lblVoltaCadUsuarioMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblVoltaCadUsuarioMouseClicked
 		dispose();
+		super.getParent().setVisible(true);
 	}// GEN-LAST:event_lblVoltaCadUsuarioMouseClicked
 
 	private void tfSenhaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_tfSenhaActionPerformed

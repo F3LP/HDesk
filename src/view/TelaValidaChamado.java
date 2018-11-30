@@ -5,15 +5,11 @@
  */
 package view;
 
-import view.*;
 import java.awt.Color;
-
 import javax.swing.ImageIcon;
-
-import controller.InserirChamado;
-import model.Chamado;
 import model.Funcionario;
-import model.Usuario;
+import model.Tecnico;
+import model.dao.ChamadoDao;
 
 /**
  *
@@ -24,18 +20,33 @@ public class TelaValidaChamado extends javax.swing.JDialog {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	Funcionario autenticado = new Usuario();
-	Chamado chamado = new Chamado();
 	
-    public TelaValidaChamado(java.awt.Frame parent, boolean modal) {
+	Object obj = new Object();
+	
+	private static final long serialVersionUID = 1L;
+	Funcionario autenticado = new Tecnico();
+	//Chamado chamado = new Chamado();
+        private Long protoc;
+        String verif;
+        	
+    public Long getProtoc() {
+			return protoc;
+		}
+
+		public void setProtoc(Long protoc) {
+			this.protoc = protoc;
+		}
+
+	public TelaValidaChamado(java.awt.Frame parent, boolean modal, Funcionario autenticado) {
         super(parent, modal);      
         initComponents();
+        parent.setVisible(false);
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo( null );
+        obj = super.getParent();
+        this.autenticado = autenticado;
     }
-
-
+	
 
 	/**
      * This method is called from within the constructor to initialize the form.
@@ -232,9 +243,7 @@ public class TelaValidaChamado extends javax.swing.JDialog {
                                 .addGap(201, 201, Short.MAX_VALUE))
                             .addComponent(tfTitulo)
                             .addComponent(jScrollPane7)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(panelValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(panelValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34))))
         );
         jPanel7Layout.setVerticalGroup(
@@ -313,11 +322,21 @@ public class TelaValidaChamado extends javax.swing.JDialog {
 
     private void lblVoltarChamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltarChamMouseClicked
         dispose();
-        new TelaInicialUsuario(autenticado).setVisible(true);;
+//        super.getParent().setVisible(true);   
+//        super.getParent().repaint();
+        
+        TelaInicialTecnico tec = new TelaInicialTecnico(autenticado);
+        //tec = (TelaInicialTecnico) super.getParent();
+        tec.setVisible(true);
     }//GEN-LAST:event_lblVoltarChamMouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        //new InserirChamado(this, autenticado);
+        if (jRvalidar.isSelected()){
+            verif = "Aberto";
+        } else if(jRinvalidar.isSelected()){
+            verif = "Inválido";
+        }
+        new ChamadoDao().atualizaValidar(verif, protoc);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
@@ -355,16 +374,16 @@ public class TelaValidaChamado extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() -> {
-            TelaValidaChamado dialog = new TelaValidaChamado(new javax.swing.JFrame(), true);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
-        });
+//        java.awt.EventQueue.invokeLater(() -> {
+//            TelaValidaChamado dialog = new TelaValidaChamado(new javax.swing.JFrame(), true);
+//            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                @Override
+//                public void windowClosing(java.awt.event.WindowEvent e) {
+//                    System.exit(0);
+//                }
+//            });
+//            dialog.setVisible(true);
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -390,7 +409,9 @@ public class TelaValidaChamado extends javax.swing.JDialog {
     private javax.swing.JLabel lblVoltarCham;
     private javax.swing.JPanel panelValidacao;
     public javax.swing.JTextPane tfDescricao;
-    private javax.swing.JTextField tfMatricula;
+    public javax.swing.JTextField tfMatricula;
     public javax.swing.JTextField tfTitulo;
     // End of variables declaration//GEN-END:variables
+
+
 }
