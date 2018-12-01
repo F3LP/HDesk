@@ -316,16 +316,19 @@ public class ChamadoDao {
 		}
 	}
         
-        public void atualizaInvalidar(String verif, Long protoc) {
-    		String sql = "UPDATE chamado SET status=?, dtAtendimento=?, dtConclusao=? WHERE protocolo=?";
+        public void atualizaInvalidar(Funcionario tecnico, String verif, Long protoc) {
+    		String sql = "UPDATE chamado SET status=?, dtAtendimento=?, dtConclusao=?, tecnico=? WHERE protocolo=?";
     		Chamado chamado = new Chamado();
+    		chamado.setDtAtendimento(Calendar.getInstance());
+    		chamado.setDtConclusao(Calendar.getInstance());
     		PreparedStatement stmt = null;
     		try {
     			stmt = connection.prepareStatement(sql);
     			stmt.setString(1, verif);
     			stmt.setDate(2, new Date(chamado.getDtAtendimento().getTimeInMillis()));
     			stmt.setDate(3, new Date(chamado.getDtConclusao().getTimeInMillis()));
-                stmt.setLong(4, protoc);
+    			stmt.setLong(4, tecnico.getMatricula());
+                stmt.setLong(5, protoc);
     			stmt.execute();
     			stmt.close();
     			JOptionPane.showMessageDialog(null, "Alteração de Status registrada.");

@@ -7,6 +7,8 @@ package view;
 
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 import model.Funcionario;
 import model.Tecnico;
 import model.dao.ChamadoDao;
@@ -333,10 +335,11 @@ public class TelaValidaChamado extends javax.swing.JDialog {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         if (jRvalidar.isSelected()){
             verif = "Aberto";
+            new ChamadoDao().atualizaValidar(verif, protoc);
         } else if(jRinvalidar.isSelected()){
             verif = "Inválido";
+            new ChamadoDao().atualizaInvalidar(autenticado, verif, protoc);
         }
-        new ChamadoDao().atualizaValidar(verif, protoc);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**

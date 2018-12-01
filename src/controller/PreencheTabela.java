@@ -93,14 +93,14 @@ public class PreencheTabela {
 			rowData[0] = chamados.get(i).getStatus();
 			rowData[1] = chamados.get(i).getProtocolo();
 			rowData[2] = chamados.get(i).getUsuario().getMatricula();
-			rowData[3] = autenticado.getDepartamento();
+			rowData[3] = chamados.get(i).getDepartamento();
 			rowData[4] = chamados.get(i).getUrgencia();	
 			rowData[5] = chamados.get(i).getTitulo();
 			rowData[6] = chamados.get(i).getTecnico();
 			rowData[7] = chamados.get(i).getDtAbertura().getTime();
 			rowData[8] = chamados.get(i).getDtAtendimento().getTime();
 			rowData[9] = chamados.get(i).getDtConclusao().getTime();
-			
+
 			model.addRow(rowData);
 			
 			
