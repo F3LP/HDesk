@@ -16,7 +16,7 @@ public class TestaInsereChamado {
 		funcionario.setMatricula(123789);
 		
 		Chamado chamado = new Chamado();
-		chamado.setFuncionario(funcionario);
+		//chamado.setFuncionario(funcionario);
 		chamado.setTipo("Dúvida");
 		chamado.setDepartamento("Diretoria");
 		chamado.setUrgencia("baixa");

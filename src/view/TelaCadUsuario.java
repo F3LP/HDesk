@@ -44,7 +44,6 @@ public class TelaCadUsuario extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        tfMatricula = new javax.swing.JTextField();
         tfEmail = new javax.swing.JTextField();
         tfCargo = new javax.swing.JTextField();
         cbDepartamento = new javax.swing.JComboBox<>();
@@ -56,6 +55,7 @@ public class TelaCadUsuario extends javax.swing.JDialog {
         tfCpf = new javax.swing.JFormattedTextField();
         tfSenha = new javax.swing.JPasswordField();
         jLabel10 = new javax.swing.JLabel();
+        tfMatricula = new javax.swing.JFormattedTextField();
 
         jToolBar1.setRollover(true);
 
@@ -85,19 +85,12 @@ public class TelaCadUsuario extends javax.swing.JDialog {
 
         tfNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        tfMatricula.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tfMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfMatriculaActionPerformed(evt);
-            }
-        });
-
         tfEmail.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         tfCargo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         cbDepartamento.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        cbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administração", "Diretoria", "Financeiro", "Marketing", "RH", "Vendas" }));
+        cbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administração", "Diretoria", "Financeiro", "Marketing", "RH", "TI", "Vendas" }));
         cbDepartamento.setMinimumSize(new java.awt.Dimension(81, 21));
         cbDepartamento.setPreferredSize(new java.awt.Dimension(81, 21));
         cbDepartamento.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +145,13 @@ public class TelaCadUsuario extends javax.swing.JDialog {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logo.png"))); // NOI18N
 
+        try {
+            tfMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tfMatricula.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -164,9 +164,6 @@ public class TelaCadUsuario extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblVoltaCadUsuario)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfCargo)
@@ -188,15 +185,20 @@ public class TelaCadUsuario extends javax.swing.JDialog {
                                     .addComponent(jLabel2)
                                     .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(tfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(111, 111, 111))
+                                    .addComponent(tfMatricula))))
                         .addGap(38, 38, 38))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblVoltaCadUsuario)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(192, 192, 192)
                 .addComponent(btnSalvar)
@@ -334,7 +336,7 @@ public class TelaCadUsuario extends javax.swing.JDialog {
     public javax.swing.JTextField tfCargo;
     public javax.swing.JFormattedTextField tfCpf;
     public javax.swing.JTextField tfEmail;
-    public javax.swing.JTextField tfMatricula;
+    public javax.swing.JFormattedTextField tfMatricula;
     public javax.swing.JTextField tfNome;
     public javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables

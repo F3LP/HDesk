@@ -91,7 +91,7 @@ public class ChamadoDao {
 
 			PreparedStatement stmt = this.connection.prepareStatement(
 					"SELECT funcionario_mat,protocolo,tipo,departamento,urgencia,titulo,descricao,status,dtAbertura FROM chamado WHERE funcionario_mat = "
-							+ funcionario.getMatricula() + " AND status = 'Pendente' OR status = 'Aberto' OR status = 'Inválido'");
+							+ funcionario.getMatricula() + " AND status = 'Pendente' OR status = 'Aberto' OR status = 'Inválido' OR status = 'Em Atendimento'");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {

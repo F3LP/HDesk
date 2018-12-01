@@ -28,6 +28,7 @@ public class InvocaTelaValidacao {
 		boolean erro = true;
 		int indiceDep = 0;
 		int indiceUrgencia = 0;
+		int indiceTipo = 0;
 		
 		int linha;
 		
@@ -49,6 +50,14 @@ public class InvocaTelaValidacao {
 			tela.tfMatricula.setText(String.valueOf(chamado.getUsuario().getMatricula()));
 			tela.tfTitulo.setText(chamado.getTitulo());
 			tela.tfDescricao.setText(chamado.getDescricao());
+			
+			if (chamado.getTipo().equals("Dúvida")) {
+				indiceTipo = 1;
+			} else if (chamado.getTipo().equals("Requisição")) {
+				indiceTipo = 2;
+			}
+			
+			tela.cbTipo.setSelectedIndex(indiceTipo);
 			
 			if (chamado.getDepartamento().equals("Administração")) {
 				indiceDep = 1;
