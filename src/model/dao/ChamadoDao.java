@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -19,6 +21,7 @@ import model.Usuario;
 
 public class ChamadoDao {
 	private Connection connection;
+	DateFormat df = new SimpleDateFormat("yy/MM/dd  -  HH:mm:ss");
 
 	public ChamadoDao() {
 		this.connection = new ConnectionFactory().getConnection();
@@ -37,7 +40,7 @@ public class ChamadoDao {
 			stmt.setString(4, chamado.getUrgencia());
 			stmt.setString(5, chamado.getTitulo());
 			stmt.setString(6, chamado.getDescricao());
-			stmt.setDate(7, new Date(chamado.getDtAbertura().getTimeInMillis()));
+			stmt.setString(7, df.format((chamado.getDtAbertura().getTime())));
 			stmt.setString(8, chamado.getStatus());
 
 			stmt.execute();
@@ -53,7 +56,7 @@ public class ChamadoDao {
 			List<Chamado> chamados = new ArrayList<Chamado>();
 
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"SELECT funcionario_mat,protocolo,tipo,departamento,urgencia,titulo,descricao,status,dtAbertura FROM chamado");
+					"SELECT funcionario_mat, protocolo, tipo, departamento, urgencia, titulo, descricao, status, dtAbertura, dtAtendimento, dtConclusao FROM chamado");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -69,9 +72,21 @@ public class ChamadoDao {
 				chamado.setDescricao(rs.getString("descricao"));
 				chamado.setStatus(rs.getString("status"));
 
-				Calendar dtAbertura = Calendar.getInstance();
-				dtAbertura.setTime(rs.getDate("dtAbertura"));
-				chamado.setDtAbertura(dtAbertura);
+				try {
+					Calendar dtAbertura = Calendar.getInstance();
+					dtAbertura.setTime(rs.getTimestamp("dtAbertura"));
+					chamado.setDtAbertura(dtAbertura);
+
+					Calendar dtAtendimento = Calendar.getInstance();
+					dtAtendimento.setTime(rs.getTimestamp("dtAtendimento"));
+					chamado.setDtAtendimento(dtAtendimento);
+
+					Calendar dtConclusao = Calendar.getInstance();
+					dtConclusao.setTime(rs.getTimestamp("dtConclusao"));
+					chamado.setDtConclusao(dtConclusao);
+				} catch (RuntimeException e) {
+
+				}
 
 				chamados.add(chamado);
 			}
@@ -84,16 +99,15 @@ public class ChamadoDao {
 		}
 	}
 
-	public List<Chamado> getListaChamado(Funcionario funcionario) {
-		// long funcionario_mat = funcionario.getMatricula();
+	public List<Chamado> getListaChamado(Funcionario autenticado) {
+
 		try {
 			List<Chamado> chamados = new ArrayList<Chamado>();
 
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"SELECT funcionario_mat,protocolo,tipo,departamento,urgencia,titulo,descricao,status,dtAbertura FROM chamado WHERE funcionario_mat = "
-							+ funcionario.getMatricula() + " AND status = 'Pendente' OR status = 'Aberto' OR status = 'Inválido' OR status = 'Em Atendimento'");
+					"SELECT funcionario_mat, protocolo, tipo, departamento, urgencia, titulo, descricao, status, dtAbertura FROM chamado WHERE funcionario_mat = "
+							+ autenticado.getMatricula());
 			ResultSet rs = stmt.executeQuery();
-
 			while (rs.next()) {
 				Chamado chamado = new Chamado();
 				chamado.setProtocolo(rs.getLong("protocolo"));
@@ -105,10 +119,15 @@ public class ChamadoDao {
 				chamado.setStatus(rs.getString("status"));
 
 				Calendar dtAbertura = Calendar.getInstance();
-				dtAbertura.setTime(rs.getDate("dtAbertura"));
+				dtAbertura.setTime(rs.getTimestamp("dtAbertura"));
 				chamado.setDtAbertura(dtAbertura);
+				if (chamado.getStatus().equals("Pendente") || chamado.getStatus().equals("Aberto")
+						|| chamado.getStatus().equals("Em Atendimento")) {
+					chamados.add(chamado);
+				} else {
+					continue;
+				}
 
-				chamados.add(chamado);
 			}
 			rs.close();
 			stmt.close();
@@ -119,37 +138,55 @@ public class ChamadoDao {
 		}
 	}
 
-	public List<Chamado> getListaChamadoHistorico(Funcionario funcionario) {
+	public List<Chamado> getListaChamadoHistorico(Funcionario autenticado) {
+		Funcionario solicitante = new Usuario();
+		Funcionario tecnico = new Tecnico();
+		
 		try {
 			List<Chamado> chamados = new ArrayList<Chamado>();
 
-			PreparedStatement stmt = this.connection.prepareStatement("SELECT status,protocolo,departamento,"
-					+ "urgencia,titulo,dtAbertura,dtAtendimento,dtConclusao FROM chamado WHERE funcionario_mat = "
-					+ funcionario.getMatricula() + " AND status = 'Encerrado' OR status = 'Inválido'");
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT tecnico, descricao, tipo, status, protocolo, departamento, urgencia,"
+					+ " titulo, dtAbertura, dtAtendimento, dtConclusao, funcionario_mat FROM chamado WHERE funcionario_mat = " + autenticado.getMatricula());
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
+				solicitante = new Usuario();
+				tecnico = new Tecnico();
+				tecnico.setMatricula(rs.getLong("tecnico"));
+				solicitante.setMatricula(rs.getLong("funcionario_mat"));;
 				Chamado chamado = new Chamado();
+				chamado.setDescricao(rs.getString("descricao"));
+				chamado.setTipo(rs.getString("tipo"));
 				chamado.setStatus(rs.getString("status"));
 				chamado.setProtocolo(rs.getLong("protocolo"));
 				chamado.setDepartamento(rs.getString("departamento"));
 				chamado.setUrgencia(rs.getString("urgencia"));
 				chamado.setTitulo(rs.getString("titulo"));
 				chamado.setStatus(rs.getString("status"));
+				chamado.setUsuario(solicitante);		
+				chamado.setTecnico(tecnico);
+		//		System.out.println("Protocolos: " + rs.getLong("protocolo") + "\nSolicitante: " + solicitante.getMatricula());
+				try {
+					Calendar dtAbertura = Calendar.getInstance();
+					dtAbertura.setTime(rs.getTimestamp("dtAbertura"));
+					chamado.setDtAbertura(dtAbertura);
 
-				Calendar dtAbertura = Calendar.getInstance();
-				dtAbertura.setTime(rs.getDate("dtAbertura"));
-				chamado.setDtAbertura(dtAbertura);
+					Calendar dtAtendimento = Calendar.getInstance();
+					dtAtendimento.setTime(rs.getTimestamp("dtAtendimento"));
+					chamado.setDtAtendimento(dtAtendimento);
 
-				Calendar dtAtendimento = Calendar.getInstance();
-				dtAtendimento.setTime(rs.getDate("dtAtendimento"));
-				chamado.setDtAtendimento(dtAtendimento);
+					Calendar dtConclusao = Calendar.getInstance();
+					dtConclusao.setTime(rs.getTimestamp("dtConclusao"));
+					chamado.setDtConclusao(dtConclusao);
+				} catch (RuntimeException e) {
 
-				Calendar dtConclusao = Calendar.getInstance();
-				dtConclusao.setTime(rs.getDate("dtConclusao"));
-				chamado.setDtConclusao(dtConclusao);
+				}
 
-				chamados.add(chamado);
+				if (chamado.getStatus().equals("Encerrado") || chamado.getStatus().equals("Inválido")) {
+					chamados.add(chamado);
+				} else {
+					continue;
+				}
 			}
 			rs.close();
 			stmt.close();
@@ -190,9 +227,8 @@ public class ChamadoDao {
 				chamado.setTecnico(tec);
 
 				Calendar dtAbertura = Calendar.getInstance();
-				dtAbertura.setTime(rs.getDate("dtAbertura"));
+				dtAbertura.setTime(rs.getTimestamp("dtAbertura"));
 				chamado.setDtAbertura(dtAbertura);
-
 				chamados.add(chamado);
 			}
 			rs.close();
@@ -205,15 +241,16 @@ public class ChamadoDao {
 	}
 
 	public void atualizaAtender(Funcionario autenticado, Long prot, Chamado chamado) {
-		String sql = "UPDATE chamado SET tecnico=?,dtAtendimento=?,status='Em Atendimento' WHERE protocolo=?";
+		String sql = "UPDATE chamado SET tecnico=?, dtAtendimento=?, status='Em Atendimento' WHERE protocolo=?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setLong(1, autenticado.getMatricula());
-			stmt.setDate(2, new Date(chamado.getDtAtendimento().getTimeInMillis()));
+			stmt.setString(2, df.format(chamado.getDtAtendimento().getTime()));
 			stmt.setLong(3, prot);
 			stmt.execute();
 			stmt.close();
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -231,15 +268,19 @@ public class ChamadoDao {
 
 	public List<Chamado> getListaChamadoHistoricoCompleta(Funcionario funcionario) {
 		Funcionario solicitante = new Usuario();
+		Funcionario tecnico = new Tecnico();
 		long matricula;
 		try {
 			List<Chamado> chamados = new ArrayList<Chamado>();
 
-			PreparedStatement stmt = this.connection.prepareStatement("SELECT status,protocolo,departamento,"
-					+ "urgencia,titulo,dtAbertura,dtAtendimento,dtConclusao,funcionario_mat FROM chamado WHERE status = 'Encerrado' OR status = 'Inválido'");
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT tecnico, status, protocolo, departamento,"
+					+ "urgencia, titulo, dtAbertura, dtAtendimento, dtConclusao, funcionario_mat FROM chamado WHERE status = 'Encerrado' OR status = 'Inválido'");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
+				solicitante = new Usuario();
+				tecnico = new Tecnico();
+				tecnico.setMatricula(rs.getLong("tecnico"));
 				solicitante.setMatricula(rs.getLong("funcionario_mat"));
 				Chamado chamado = new Chamado();
 				chamado.setStatus(rs.getString("status"));
@@ -249,17 +290,18 @@ public class ChamadoDao {
 				chamado.setTitulo(rs.getString("titulo"));
 				chamado.setStatus(rs.getString("status"));
 				chamado.setUsuario(solicitante);
+				chamado.setTecnico(tecnico);
 
 				Calendar dtAbertura = Calendar.getInstance();
-				dtAbertura.setTime(rs.getDate("dtAbertura"));
+				dtAbertura.setTime(rs.getTimestamp("dtAbertura"));
 				chamado.setDtAbertura(dtAbertura);
 
 				Calendar dtAtendimento = Calendar.getInstance();
-				dtAtendimento.setTime(rs.getDate("dtAtendimento"));
+				dtAtendimento.setTime(rs.getTimestamp("dtAtendimento"));
 				chamado.setDtAtendimento(dtAtendimento);
 
 				Calendar dtConclusao = Calendar.getInstance();
-				dtConclusao.setTime(rs.getDate("dtConclusao"));
+				dtConclusao.setTime(rs.getTimestamp("dtConclusao"));
 				chamado.setDtConclusao(dtConclusao);
 
 				chamados.add(chamado);
@@ -287,18 +329,21 @@ public class ChamadoDao {
 				chamado.setDepartamento(chamados.get(i).getDepartamento());
 				chamado.setDescricao(chamados.get(i).getDescricao());
 				chamado.setUsuario(chamados.get(i).getUsuario());
+				chamado.setDtAbertura(chamados.get(i).getDtAbertura());
+				chamado.setDtAtendimento(chamados.get(i).getDtAtendimento());
+				chamado.setDtConclusao(chamados.get(i).getDtConclusao());
 			}
 		}
 		return chamado;
 	}
-        
-        public void atualizaValidar(String verif, Long protoc) {
+
+	public void atualizaValidar(String verif, Long protoc) {
 		String sql = "UPDATE chamado SET status=? WHERE protocolo=?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, verif);
-            stmt.setLong(2, protoc);
+			stmt.setLong(2, protoc);
 			stmt.execute();
 			stmt.close();
 			JOptionPane.showMessageDialog(null, "Alteração de Status registrada.");
@@ -312,37 +357,38 @@ public class ChamadoDao {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}			
+			}
 		}
 	}
-        
-        public void atualizaInvalidar(Funcionario tecnico, String verif, Long protoc) {
-    		String sql = "UPDATE chamado SET status=?, dtAtendimento=?, dtConclusao=?, tecnico=? WHERE protocolo=?";
-    		Chamado chamado = new Chamado();
-    		chamado.setDtAtendimento(Calendar.getInstance());
-    		chamado.setDtConclusao(Calendar.getInstance());
-    		PreparedStatement stmt = null;
-    		try {
-    			stmt = connection.prepareStatement(sql);
-    			stmt.setString(1, verif);
-    			stmt.setDate(2, new Date(chamado.getDtAtendimento().getTimeInMillis()));
-    			stmt.setDate(3, new Date(chamado.getDtConclusao().getTimeInMillis()));
-    			stmt.setLong(4, tecnico.getMatricula());
-                stmt.setLong(5, protoc);
-    			stmt.execute();
-    			stmt.close();
-    			JOptionPane.showMessageDialog(null, "Alteração de Status registrada.");
-    		} catch (SQLException e) {
-    			throw new RuntimeException(e);
-    		} finally {
-    			if (stmt != null) {
-    				try {
-    					stmt.close();
-    				} catch (SQLException e) {
-    					// TODO Auto-generated catch block
-    					e.printStackTrace();
-    				}
-    			}			
-    		}
-    	}
+
+	public void atualizaInvalidar(Funcionario tecnico, String verif, Long protoc) {
+		String sql = "UPDATE chamado SET status=?, dtAtendimento=?, dtConclusao=?, tecnico=? WHERE protocolo=?";
+		Chamado chamado = new Chamado();
+		chamado.setDtAtendimento(Calendar.getInstance());
+		chamado.setDtConclusao(Calendar.getInstance());
+		PreparedStatement stmt = null;
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, verif);
+			stmt.setString(2, df.format(chamado.getDtAtendimento().getTime()));
+			stmt.setString(3, df.format(chamado.getDtConclusao().getTime()));
+			stmt.setLong(4, tecnico.getMatricula());
+			stmt.setLong(5, protoc);
+			stmt.execute();
+			stmt.close();
+			JOptionPane.showMessageDialog(null, "Alteração de Status registrada.");
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

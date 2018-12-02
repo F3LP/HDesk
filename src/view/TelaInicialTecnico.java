@@ -1,14 +1,12 @@
 package view;
 
-import java.awt.Color;
-import java.sql.Date;
-import java.util.Calendar;
-
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-
+import controller.InvocaTelaDetalhes;
 import controller.InvocaTelaValidacao;
 import controller.PreencheTabela;
+import java.awt.Color;
+import java.util.Calendar;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import model.Chamado;
 import model.Funcionario;
 import model.Tecnico;
@@ -65,12 +63,14 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Chamados Abertos");
 
+        tabela.setAutoCreateRowSorter(true);
+        tabela.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Status", "Protocolo", "Data de Abertura", "Urgência", "Tipo", "Solicitante", "Departamento", "Título", "Téc. Responsável"
+                "Status", "Protocolo", "Dt Abertura", "Urgência", "Tipo", "Solicitante", "Departamento", "Título", "Téc. Responsável"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -81,7 +81,7 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-       
+        tabela.setFillsViewportHeight(true);
         jScrollPane1.setViewportView(tabela);
 
         lblHistorico.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -233,6 +233,10 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
+        InvocaTelaDetalhes telaDetal = new InvocaTelaDetalhes(this, tabela);
+    }//GEN-LAST:event_btnDetalhesActionPerformed
+
 	private void lblHistoricoMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblHistoricoMouseEntered
 		lblHistorico.setForeground(Color.CYAN);
 	}// GEN-LAST:event_lblHistoricoMouseEntered
@@ -240,10 +244,6 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 	private void lblHistoricoMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblHistoricoMouseExited
 		lblHistorico.setForeground(Color.BLUE);
 	}// GEN-LAST:event_lblHistoricoMouseExited
-
-	private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDetalhesActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_btnDetalhesActionPerformed
 
 	private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSairActionPerformed
 		System.exit(0);

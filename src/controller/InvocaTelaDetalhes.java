@@ -5,23 +5,27 @@
  */
 package controller;
 
+import java.awt.Frame;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-
 import model.Chamado;
-import model.Funcionario;
-import model.Tecnico;
 import model.dao.ChamadoDao;
-import view.TelaInicialTecnico;
+import view.TelaDetalhes;
 import view.TelaValidaChamado;
 
 /**
  *
  * @author Felipe
  */
-public class InvocaTelaValidacao {
+public class InvocaTelaDetalhes {
+	public InvocaTelaDetalhes(Frame frame, JTable tabela) {
+		TelaDetalhes tela;
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
 
-	public InvocaTelaValidacao(JTable tabela, TelaInicialTecnico telaTec, Funcionario autenticado) {
 		JTable table = new JTable();
 		table = tabela;
 		long prot = 0;
@@ -29,9 +33,9 @@ public class InvocaTelaValidacao {
 		int indiceDep = 0;
 		int indiceUrgencia = 0;
 		int indiceTipo = 0;
-		
+
 		int linha;
-		
+
 		try {
 			linha = tabela.getSelectedRow();
 			prot = (long) tabela.getModel().getValueAt(linha, 1);
@@ -44,21 +48,32 @@ public class InvocaTelaValidacao {
 			Chamado chamado = new Chamado();
 			ChamadoDao dao = new ChamadoDao();
 			chamado = dao.getChamadoProt(prot);
-		
-			TelaValidaChamado tela = new TelaValidaChamado(telaTec, true, autenticado);
-                        tela.setProtoc(prot);
+
+			tela = new TelaDetalhes(frame, true);
+			tela.tfProtocolo.setText(String.valueOf(chamado.getProtocolo()));
 			tela.tfMatricula.setText(String.valueOf(chamado.getUsuario().getMatricula()));
 			tela.tfTitulo.setText(chamado.getTitulo());
 			tela.tfDescricao.setText(chamado.getDescricao());
+			
+			try {
+				tela.tfDtAbertura.setText(df.format(chamado.getDtAbertura().getTime()));
+				tela.tfDtAtendimento.setText(df.format(chamado.getDtAtendimento().getTime()));
+				tela.tfDtConclusao.setText(df.format(chamado.getDtConclusao().getTime()));
+
+			} catch (RuntimeException e) {
+//				tela.tfDtAbertura.setText("");
+//				tela.tfDtAtendimento.setText("");
+//				tela.tfDtConclusao.setText("");
+			}
 			
 			if (chamado.getTipo().equals("Dúvida")) {
 				indiceTipo = 1;
 			} else if (chamado.getTipo().equals("Requisição")) {
 				indiceTipo = 2;
 			}
-			
+
 			tela.cbTipo.setSelectedIndex(indiceTipo);
-			
+
 			if (chamado.getDepartamento().equals("Administração")) {
 				indiceDep = 1;
 			} else if (chamado.getDepartamento().equals("Diretoria")) {
@@ -72,9 +87,9 @@ public class InvocaTelaValidacao {
 			} else if (chamado.getDepartamento().equals("Vendas")) {
 				indiceDep = 6;
 			}
-			
+
 			tela.cbDepartamento.setSelectedIndex(indiceDep);
-			
+
 			if (chamado.getUrgencia().equals("Baixa")) {
 				indiceUrgencia = 1;
 			} else if (chamado.getUrgencia().equals("Média")) {
@@ -82,10 +97,11 @@ public class InvocaTelaValidacao {
 			} else if (chamado.getUrgencia().equals("Alta")) {
 				indiceUrgencia = 3;
 			}
-			
+
 			tela.cbUrgencia.setSelectedIndex(indiceUrgencia);
-			
+
 			tela.setVisible(true);
 		}
 	}
+
 }

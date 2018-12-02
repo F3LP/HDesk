@@ -103,8 +103,9 @@ public class TelaValidaChamado extends javax.swing.JDialog {
         jLabel40.setText("Título");
 
         tfMatricula.setEditable(false);
-        tfMatricula.setBackground(new java.awt.Color(224, 221, 221));
+        tfMatricula.setBackground(new java.awt.Color(255, 255, 255));
         tfMatricula.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tfMatricula.setDisabledTextColor(new java.awt.Color(255, 255, 255));
 
         cbDepartamento.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administração", "Diretoria", "Financeiro", "Marketing", "RH", "Vendas" }));
@@ -118,8 +119,11 @@ public class TelaValidaChamado extends javax.swing.JDialog {
         jLabel41.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel41.setText("Urgência");
 
+        tfTitulo.setEditable(false);
+        tfTitulo.setBackground(new java.awt.Color(255, 255, 255));
         tfTitulo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tfTitulo.setEnabled(false);
+        tfTitulo.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 7, 3, 3));
+        tfTitulo.setDisabledTextColor(new java.awt.Color(255, 255, 255));
 
         cbUrgencia.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbUrgencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Baixa", "Média", "Alta" }));
@@ -151,7 +155,10 @@ public class TelaValidaChamado extends javax.swing.JDialog {
         jLabel42.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel42.setText("Matrícula");
 
-        tfDescricao.setEnabled(false);
+        tfDescricao.setEditable(false);
+        tfDescricao.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 7, 3, 3));
+        tfDescricao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tfDescricao.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         jScrollPane7.setViewportView(tfDescricao);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N

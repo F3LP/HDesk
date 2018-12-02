@@ -5,7 +5,9 @@
  */
 package view;
 
+import controller.InvocaTelaDetalhes;
 import java.awt.Color;
+import java.awt.Frame;
 
 import javax.swing.ImageIcon;
 
@@ -20,17 +22,10 @@ public class TelaHistorico extends javax.swing.JDialog {
 
 	Funcionario autenticado;
 	PreencheTabela preTabela = new PreencheTabela();
+	Frame parent;
     /**
      * Creates new form Teste
      */
-//    public TelaHistorico(java.awt.Frame parent, boolean modal) {
-//    	super(parent, modal);
-//    	autenticado = new Usuario();
-//        initComponents();
-//        new PreencheTabela().preencheTabelaUsuario(tabela, autenticado);;
-//        setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
-//        setLocationRelativeTo( null );
-//    }
   
     public TelaHistorico(java.awt.Frame parent, boolean modal, Funcionario autenticado) {
     	super(parent, modal);
@@ -39,6 +34,7 @@ public class TelaHistorico extends javax.swing.JDialog {
         new PreencheTabela().preencheTabelaHistoricoUsuario(tabela, autenticado);;
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo( null );
+        this.parent = parent;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +79,7 @@ public class TelaHistorico extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tabela.setFillsViewportHeight(true);
         jScrollPane1.setViewportView(tabela);
 
         btnVisualizarHist.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -165,7 +162,7 @@ public class TelaHistorico extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVisualizarHistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarHistActionPerformed
-        // TODO add your handling code here:
+        InvocaTelaDetalhes telaDetal = new InvocaTelaDetalhes(parent, tabela);
     }//GEN-LAST:event_btnVisualizarHistActionPerformed
 
     private void lblVoltaHistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltaHistMouseClicked

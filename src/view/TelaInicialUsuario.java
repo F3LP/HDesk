@@ -5,9 +5,12 @@
  */
 package view;
 
+import controller.InvocaTelaDetalhes;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import controller.PreencheTabela;
 import model.Funcionario;
 import model.Usuario;
@@ -112,6 +115,7 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabela.setFillsViewportHeight(true);
         jScrollPane1.setViewportView(tabela);
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -235,7 +239,7 @@ public class TelaInicialUsuario extends javax.swing.JFrame {
     }                                         
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        InvocaTelaDetalhes telaDetal = new InvocaTelaDetalhes(this, tabela);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
