@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import model.Funcionario;
 import model.Tecnico;
 import model.Usuario;
-import model.dao.TecnicoDao;
+import model.dao.FuncionarioDao;
 import view.TelaInicialTecnico;
 import view.TelaInicialUsuario;
 import view.TelaLogin;
@@ -23,7 +23,7 @@ public class ControleAutenticacao {
 		Funcionario autenticado = null;
 		boolean autentica = false;
 		String password = String.valueOf(tfSenha.getPassword());	
-		TecnicoDao dao = new TecnicoDao();
+		FuncionarioDao dao = new FuncionarioDao();
 
 		List<Funcionario> funcionarios = dao.getListaFuncio();
 

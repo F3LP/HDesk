@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import model.Funcionario;
 import model.Tecnico;
 import model.Usuario;
-import model.dao.TecnicoDao;
+import model.dao.FuncionarioDao;
 import view.TelaCadUsuario;
 
 public class InserirFuncionario {
@@ -33,7 +33,7 @@ public class InserirFuncionario {
 		funcionario.setPerfil((String) cadDialog.cbPerfil.getSelectedItem());
 		funcionario.setMatricula(Long.parseLong(cadDialog.tfMatricula.getText()));
 
-		TecnicoDao dao = new TecnicoDao();
+		FuncionarioDao dao = new FuncionarioDao();
 
 		dao.insereFuncio(funcionario);
 		cadDialog.tfCpf.setText("");

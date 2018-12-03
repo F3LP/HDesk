@@ -3,11 +3,11 @@ package Testes;
 import java.util.List;
 
 import model.Funcionario;
-import model.dao.TecnicoDao;
+import model.dao.FuncionarioDao;
 
 public class TesteGetListaFuncio {
 	public static void main(String[] args) {
-		TecnicoDao dao = new TecnicoDao();
+		FuncionarioDao dao = new FuncionarioDao();
 
 		List<Funcionario> funcionarios = dao.getListaFuncio();
 		

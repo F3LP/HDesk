@@ -6,17 +6,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import model.ConnectionFactory;
 import model.Funcionario;
 import model.Usuario;
 
-public class TecnicoDao {
+public class FuncionarioDao {
     private Connection connection;
     
-    public TecnicoDao(){
+    public FuncionarioDao(){
         this.connection = new ConnectionFactory().getConnection();
     }
     
@@ -72,6 +73,16 @@ public class TecnicoDao {
 		}
 	}
     
-    
+	public void removeFuncionario(long mat) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("DELETE FROM funcionario where matricula=?");
+			stmt.setLong(1, mat);
+			stmt.execute();
+			stmt.close();
+			JOptionPane.showMessageDialog(null, "Registro excluído com sucesso.");
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
     
 }

@@ -84,8 +84,10 @@ public class InvocaTelaDetalhes {
 				indiceDep = 4;
 			} else if (chamado.getDepartamento().equals("RH")) {
 				indiceDep = 5;
-			} else if (chamado.getDepartamento().equals("Vendas")) {
+			} else if (chamado.getDepartamento().equals("TI")) {
 				indiceDep = 6;
+			}else if (chamado.getDepartamento().equals("Vendas")) {
+				indiceDep = 7;
 			}
 
 			tela.cbDepartamento.setSelectedIndex(indiceDep);

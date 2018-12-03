@@ -3,16 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaInicialUsuario.java</file>
-            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaValidaChamado.java</file>
+            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaLogin.java</file>
             <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaInicialTecnico.java</file>
-            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaCadChamado.java</file>
             <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaHistoricoTec.java</file>
-            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaHistorico.java</file>
+            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaDetalhes.java</file>
+            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/model/dao/FuncionarioDao.java</file>
+            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaValidaChamado.java</file>
+            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaExcluirUsuario.java</file>
+            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaCadChamado.java</file>
             <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/controller/InvocaTelaDetalhes.java</file>
             <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/controller/PreencheTabela.java</file>
+            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/controller/LimparTela.java</file>
             <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/model/dao/ChamadoDao.java</file>
-            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaDetalhes.java</file>
+            <file>file:/C:/Users/Felipe/Desktop/workspace/HelpDesk/src/view/TelaCadUsuario.java</file>
         </group>
     </open-files>
 </project-private>

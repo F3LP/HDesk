@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 import model.Funcionario;
 import model.Usuario;
-import model.dao.TecnicoDao;
+import model.dao.FuncionarioDao;
 
 
 public class TestaInsereFuncio {
@@ -19,7 +19,7 @@ public class TestaInsereFuncio {
         funcionario.setDepartamento("Financeiro");
         funcionario.setPerfil("Usuário");
         
-        TecnicoDao dao = new TecnicoDao();
+        FuncionarioDao dao = new FuncionarioDao();
         dao.insereFuncio(funcionario);
         JOptionPane.showMessageDialog(null, "Dados gravados com sucesso!");
         ;
