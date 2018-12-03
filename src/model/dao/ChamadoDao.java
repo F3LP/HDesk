@@ -18,6 +18,7 @@ import model.ConnectionFactory;
 import model.Funcionario;
 import model.Tecnico;
 import model.Usuario;
+import view.TelaEncerrarChamado;
 
 public class ChamadoDao {
 	private Connection connection;
@@ -56,12 +57,13 @@ public class ChamadoDao {
 			List<Chamado> chamados = new ArrayList<Chamado>();
 
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"SELECT funcionario_mat, protocolo, tipo, departamento, urgencia, titulo, descricao, status, dtAbertura, dtAtendimento, dtConclusao FROM chamado");
+					"SELECT conclusao, funcionario_mat, protocolo, tipo, departamento, urgencia, titulo, descricao, status, dtAbertura, dtAtendimento, dtConclusao FROM chamado");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				Chamado chamado = new Chamado();
 				Funcionario usuario = new Usuario();
+				chamado.setConclusao(rs.getString("conclusao"));
 				usuario.setMatricula(rs.getLong("funcionario_mat"));
 				chamado.setUsuario(usuario);
 				chamado.setProtocolo(rs.getLong("protocolo"));
@@ -165,7 +167,7 @@ public class ChamadoDao {
 				chamado.setStatus(rs.getString("status"));
 				chamado.setUsuario(solicitante);		
 				chamado.setTecnico(tecnico);
-		//		System.out.println("Protocolos: " + rs.getLong("protocolo") + "\nSolicitante: " + solicitante.getMatricula());
+		
 				try {
 					Calendar dtAbertura = Calendar.getInstance();
 					dtAbertura.setTime(rs.getTimestamp("dtAbertura"));
@@ -332,6 +334,7 @@ public class ChamadoDao {
 				chamado.setDtAbertura(chamados.get(i).getDtAbertura());
 				chamado.setDtAtendimento(chamados.get(i).getDtAtendimento());
 				chamado.setDtConclusao(chamados.get(i).getDtConclusao());
+				chamado.setConclusao(chamados.get(i).getConclusao());
 			}
 		}
 		return chamado;
@@ -389,6 +392,32 @@ public class ChamadoDao {
 					e.printStackTrace();
 				}
 			}
+		}
+	}
+	
+	public void atualizaEncerrar(Long prot, Chamado chamado, TelaEncerrarChamado telaEncerrar) {
+		String sql = "UPDATE chamado SET status=?, dtConclusao=?, conclusao=? WHERE protocolo=?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, "Encerrado");
+			stmt.setString(2, df.format(chamado.getDtConclusao().getTime()));
+			stmt.setString(3, telaEncerrar.tfConclusao.getText());
+			stmt.setLong(4, prot);
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			JOptionPane.showMessageDialog(null, "Chamado Encerrado.");
 		}
 	}
 }

@@ -13,6 +13,7 @@ public class Chamado {
     private String urgencia;
     private String titulo;
     private String descricao;
+    private String conclusao;
     private String status = "Pendente";
 	private Calendar dtAbertura;
     private Calendar dtAtendimento;
@@ -91,5 +92,12 @@ public class Chamado {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getConclusao() {
+		return conclusao;
+	}
+	public void setConclusao(String conclusao) {
+		this.conclusao = conclusao;
+	}
     
+	
 }

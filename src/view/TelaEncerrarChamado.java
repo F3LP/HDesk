@@ -6,22 +6,36 @@
 package view;
 
 import java.awt.Color;
+
 import javax.swing.ImageIcon;
+
+import controller.LimparTelaEncerrar;
+import model.Chamado;
+import model.Funcionario;
+import model.Tecnico;
+import model.dao.ChamadoDao;
 
 /**
  *
  * @author Felipe
  */
-public class TelaDetalhes extends javax.swing.JDialog {
+public class TelaEncerrarChamado extends javax.swing.JDialog {
+
 
     /**
      * Creates new form TelaDetalhes
      */
-    public TelaDetalhes(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+	Funcionario autenticado = new Tecnico();
+	Chamado chamado = new Chamado();
+	long prot;
+    public TelaEncerrarChamado(java.awt.Frame parent, boolean modal, Chamado chamado, Funcionario autenticado) {
+    	super(parent, modal);
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imagens/HDesk.png")).getImage());
         setLocationRelativeTo(null);
+        this.autenticado = autenticado;
+        this.chamado = chamado;
+        this.prot = prot;
     }
 
     /**
@@ -61,6 +75,7 @@ public class TelaDetalhes extends javax.swing.JDialog {
         tfDtConclusao = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tfConclusao = new javax.swing.JTextPane();
+        btnFinalizarChamado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Help Desk University");
@@ -190,11 +205,18 @@ public class TelaDetalhes extends javax.swing.JDialog {
             }
         });
 
-        tfConclusao.setEditable(false);
         tfConclusao.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 7, 3, 3));
         tfConclusao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tfConclusao.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tfConclusao);
+
+        btnFinalizarChamado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnFinalizarChamado.setText("Finalizar Chamado");
+        btnFinalizarChamado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarChamadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -211,8 +233,8 @@ public class TelaDetalhes extends javax.swing.JDialog {
                         .addGap(18, 18, 18))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblVoltarCham)
                             .addComponent(jLabel3)
+                            .addComponent(lblVoltarCham)
                             .addComponent(jLabel37)
                             .addComponent(jLabel40))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -252,6 +274,10 @@ public class TelaDetalhes extends javax.swing.JDialog {
                                     .addComponent(tfDtConclusao)
                                     .addComponent(jLabel41, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))))
                         .addGap(34, 34, 34))))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(btnFinalizarChamado)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,15 +325,17 @@ public class TelaDetalhes extends javax.swing.JDialog {
                 .addComponent(tfTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel37)
-                .addGap(7, 7, 7)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblVoltarCham)
-                .addGap(52, 52, 52))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFinalizarChamado)
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -318,7 +346,7 @@ public class TelaDetalhes extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
         );
 
         pack();
@@ -330,6 +358,7 @@ public class TelaDetalhes extends javax.swing.JDialog {
 
     private void lblVoltarChamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltarChamMouseClicked
         dispose();
+        new TelaInicialTecnico(autenticado).setVisible(true);
     }//GEN-LAST:event_lblVoltarChamMouseClicked
 
     private void lblVoltarChamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltarChamMouseEntered
@@ -352,49 +381,57 @@ public class TelaDetalhes extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDtConclusaoActionPerformed
 
+    private void btnFinalizarChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarChamadoActionPerformed
+		ChamadoDao dao = new ChamadoDao();
+		dao.atualizaEncerrar(Long.parseLong(tfProtocolo.getText()), chamado, this);
+		new LimparTelaEncerrar(this);
+    }//GEN-LAST:event_btnFinalizarChamadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaDetalhes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaDetalhes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaDetalhes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaDetalhes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TelaDetalhes dialog = new TelaDetalhes(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(TelaEncerrarChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(TelaEncerrarChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(TelaEncerrarChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(TelaEncerrarChamado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                TelaEncerrarChamado dialog = new TelaEncerrarChamado(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFinalizarChamado;
     public javax.swing.JComboBox<String> cbDepartamento;
     public javax.swing.JComboBox<String> cbTipo;
     public javax.swing.JComboBox<String> cbUrgencia;

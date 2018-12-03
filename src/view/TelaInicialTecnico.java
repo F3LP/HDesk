@@ -1,12 +1,15 @@
 package view;
 
-import controller.InvocaTelaDetalhes;
-import controller.InvocaTelaValidacao;
-import controller.PreencheTabela;
 import java.awt.Color;
 import java.util.Calendar;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
+import controller.InvocaTelaDetalhes;
+import controller.InvocaTelaEncerrarChamado;
+import controller.InvocaTelaValidacao;
+import controller.PreencheTabela;
 import model.Chamado;
 import model.Funcionario;
 import model.Tecnico;
@@ -37,242 +40,243 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+	// <editor-fold defaultstate="collapsed" desc="Generated
+	// Code">//GEN-BEGIN:initComponents
+	private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
-        lblHistorico = new javax.swing.JLabel();
-        btnAtender = new javax.swing.JButton();
-        btnDetalhes = new javax.swing.JButton();
-        btnSair = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        btnCadUsuario = new javax.swing.JButton();
-        btnValidar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        btnExcluirUsuario = new javax.swing.JButton();
-        btnEncerrarChamado = new javax.swing.JButton();
+		jPanel1 = new javax.swing.JPanel();
+		jLabel1 = new javax.swing.JLabel();
+		jScrollPane1 = new javax.swing.JScrollPane();
+		tabela = new javax.swing.JTable();
+		lblHistorico = new javax.swing.JLabel();
+		btnAtender = new javax.swing.JButton();
+		btnDetalhes = new javax.swing.JButton();
+		btnSair = new javax.swing.JButton();
+		jLabel2 = new javax.swing.JLabel();
+		btnCadUsuario = new javax.swing.JButton();
+		btnValidar = new javax.swing.JButton();
+		jLabel3 = new javax.swing.JLabel();
+		jLabel4 = new javax.swing.JLabel();
+		btnExcluirUsuario = new javax.swing.JButton();
+		btnEncerrarChamado = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Help Desk University");
-        setMinimumSize(new java.awt.Dimension(500, 500));
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setTitle("Help Desk University");
+		setMinimumSize(new java.awt.Dimension(500, 500));
 
-        jPanel1.setBackground(new java.awt.Color(152, 202, 239));
+		jPanel1.setBackground(new java.awt.Color(152, 202, 239));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel1.setText("Chamados Abertos");
+		jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		jLabel1.setText("Chamados Abertos");
 
-        tabela.setAutoCreateRowSorter(true);
-        tabela.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+		tabela.setAutoCreateRowSorter(true);
+		tabela.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		tabela.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-            },
-            new String [] {
-                "Status", "Protocolo", "Dt Abertura", "Urgência", "Tipo", "Solicitante", "Departamento", "Título", "Téc. Responsável"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
+		}, new String[] { "Status", "Protocolo", "Dt Abertura", "Urgência", "Tipo", "Solicitante", "Departamento",
+				"Título", "Téc. Responsável" }) {
+			boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false, false, false };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabela.setFillsViewportHeight(true);
-        jScrollPane1.setViewportView(tabela);
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return canEdit[columnIndex];
+			}
+		});
+		tabela.setFillsViewportHeight(true);
+		jScrollPane1.setViewportView(tabela);
 
-        lblHistorico.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lblHistorico.setForeground(new java.awt.Color(0, 51, 255));
-        lblHistorico.setText("> Histórico de Chamados");
-        lblHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblHistoricoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblHistoricoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblHistoricoMouseExited(evt);
-            }
-        });
+		lblHistorico.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		lblHistorico.setForeground(new java.awt.Color(0, 51, 255));
+		lblHistorico.setText("> Histórico de Chamados");
+		lblHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				lblHistoricoMouseClicked(evt);
+			}
 
-        btnAtender.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnAtender.setText("Atender");
-        btnAtender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtenderActionPerformed(evt);
-            }
-        });
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				lblHistoricoMouseEntered(evt);
+			}
 
-        btnDetalhes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnDetalhes.setText("Ver Detalhes");
-        btnDetalhes.setMaximumSize(new java.awt.Dimension(75, 23));
-        btnDetalhes.setMinimumSize(new java.awt.Dimension(75, 23));
-        btnDetalhes.setPreferredSize(new java.awt.Dimension(75, 23));
-        btnDetalhes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDetalhesActionPerformed(evt);
-            }
-        });
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				lblHistoricoMouseExited(evt);
+			}
+		});
 
-        btnSair.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnSair.setText("Sair");
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
+		btnAtender.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		btnAtender.setText("Atender");
+		btnAtender.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnAtenderActionPerformed(evt);
+			}
+		});
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel2.setText("Bem vindo, " + autenticado.getNome() + ".");
+		btnDetalhes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		btnDetalhes.setText("Ver Detalhes");
+		btnDetalhes.setMaximumSize(new java.awt.Dimension(75, 23));
+		btnDetalhes.setMinimumSize(new java.awt.Dimension(75, 23));
+		btnDetalhes.setPreferredSize(new java.awt.Dimension(75, 23));
+		btnDetalhes.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnDetalhesActionPerformed(evt);
+			}
+		});
 
-        btnCadUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnCadUsuario.setText("Cadastrar Usuário");
-        btnCadUsuario.setMaximumSize(new java.awt.Dimension(75, 23));
-        btnCadUsuario.setMinimumSize(new java.awt.Dimension(75, 23));
-        btnCadUsuario.setPreferredSize(new java.awt.Dimension(75, 23));
-        btnCadUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadUsuarioActionPerformed(evt);
-            }
-        });
+		btnSair.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		btnSair.setText("Sair");
+		btnSair.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnSairActionPerformed(evt);
+			}
+		});
 
-        btnValidar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnValidar.setText("Validar");
-        btnValidar.setMaximumSize(new java.awt.Dimension(75, 23));
-        btnValidar.setMinimumSize(new java.awt.Dimension(75, 23));
-        btnValidar.setPreferredSize(new java.awt.Dimension(75, 23));
-        btnValidar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnValidarActionPerformed(evt);
-            }
-        });
+		jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		jLabel2.setText("Bem vindo, " + autenticado.getNome() + ".");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logo.png"))); // NOI18N
+		btnCadUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		btnCadUsuario.setText("Cadastrar Usuário");
+		btnCadUsuario.setMaximumSize(new java.awt.Dimension(75, 23));
+		btnCadUsuario.setMinimumSize(new java.awt.Dimension(75, 23));
+		btnCadUsuario.setPreferredSize(new java.awt.Dimension(75, 23));
+		btnCadUsuario.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnCadUsuarioActionPerformed(evt);
+			}
+		});
 
-        btnExcluirUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnExcluirUsuario.setText("Excluir Usuário");
-        btnExcluirUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirUsuarioActionPerformed(evt);
-            }
-        });
+		btnValidar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		btnValidar.setText("Validar");
+		btnValidar.setMaximumSize(new java.awt.Dimension(75, 23));
+		btnValidar.setMinimumSize(new java.awt.Dimension(75, 23));
+		btnValidar.setPreferredSize(new java.awt.Dimension(75, 23));
+		btnValidar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnValidarActionPerformed(evt);
+			}
+		});
 
-        btnEncerrarChamado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnEncerrarChamado.setText("Encerrar Chamado");
-        btnEncerrarChamado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEncerrarChamadoActionPerformed(evt);
-            }
-        });
+		jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logo.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(351, 351, 351)
-                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblHistorico)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCadUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                            .addComponent(btnAtender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnValidar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnExcluirUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEncerrarChamado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(13, 13, 13))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(13, 13, 13)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnDetalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnValidar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAtender, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCadUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEncerrarChamado, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 116, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46))))
-        );
+		btnExcluirUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		btnExcluirUsuario.setText("Excluir Usuário");
+		btnExcluirUsuario.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnExcluirUsuarioActionPerformed(evt);
+			}
+		});
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+		btnEncerrarChamado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+		btnEncerrarChamado.setText("Encerrar Chamado");
+		btnEncerrarChamado.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnEncerrarChamadoActionPerformed(evt);
+			}
+		});
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+		jPanel1.setLayout(jPanel1Layout);
+		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel1Layout.createSequentialGroup().addGap(351, 351, 351)
+						.addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 98,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(0, 0, Short.MAX_VALUE))
+				.addGroup(jPanel1Layout.createSequentialGroup().addGap(18, 18, 18).addGroup(jPanel1Layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanel1Layout.createSequentialGroup().addComponent(lblHistorico).addGap(0, 0,
+								Short.MAX_VALUE))
+						.addGroup(jPanel1Layout.createSequentialGroup().addComponent(jLabel2)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jLabel3)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jLabel4).addContainerGap())
+						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 632,
+												Short.MAX_VALUE)
+										.addGroup(jPanel1Layout.createSequentialGroup().addComponent(jLabel1).addGap(0,
+												0, Short.MAX_VALUE)))
+								.addGap(18, 18, 18)
+								.addGroup(jPanel1Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+										.addComponent(btnCadUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 135,
+												Short.MAX_VALUE)
+										.addComponent(btnAtender, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnValidar, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnExcluirUsuario, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnEncerrarChamado, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGap(13, 13, 13)))));
+		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel1Layout.createSequentialGroup().addGroup(jPanel1Layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanel1Layout.createSequentialGroup().addGap(50, 50, 50).addComponent(jLabel2))
+						.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addComponent(jLabel3,
+								javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+								jPanel1Layout.createSequentialGroup().addContainerGap().addComponent(jLabel4,
+										javax.swing.GroupLayout.PREFERRED_SIZE, 105,
+										javax.swing.GroupLayout.PREFERRED_SIZE)))
+						.addGap(13, 13, 13).addComponent(jLabel1)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanel1Layout.createSequentialGroup()
+										.addComponent(btnDetalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(btnValidar, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(btnAtender, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(btnCadUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(btnExcluirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(btnEncerrarChamado, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addGap(0, 116, Short.MAX_VALUE))
+								.addGroup(jPanel1Layout.createSequentialGroup()
+										.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0,
+												Short.MAX_VALUE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+										.addComponent(lblHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 21,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addGap(46, 46, 46)))));
 
-    private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
-        InvocaTelaDetalhes telaDetal = new InvocaTelaDetalhes(this, tabela);
-    }//GEN-LAST:event_btnDetalhesActionPerformed
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		getContentPane().setLayout(layout);
+		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
-    private void btnExcluirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirUsuarioActionPerformed
-    	TelaExcluirUsuario tela = new TelaExcluirUsuario(this, true);	
+		pack();
+	}// </editor-fold>//GEN-END:initComponents
+
+	private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDetalhesActionPerformed
+		InvocaTelaDetalhes telaDetal = new InvocaTelaDetalhes(this, tabela);
+	}// GEN-LAST:event_btnDetalhesActionPerformed
+
+	private void btnExcluirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnExcluirUsuarioActionPerformed
+		TelaExcluirUsuario tela = new TelaExcluirUsuario(this, true);
 		tela.setVisible(true);
-    }//GEN-LAST:event_btnExcluirUsuarioActionPerformed
+	}// GEN-LAST:event_btnExcluirUsuarioActionPerformed
 
-    private void btnEncerrarChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncerrarChamadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEncerrarChamadoActionPerformed
+	private void btnEncerrarChamadoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEncerrarChamadoActionPerformed
+		
+		InvocaTelaEncerrarChamado telaEncerrar = new InvocaTelaEncerrarChamado(this, tabela, autenticado);
+
+	}// GEN-LAST:event_btnEncerrarChamadoActionPerformed
 
 	private void lblHistoricoMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblHistoricoMouseEntered
 		lblHistorico.setForeground(Color.CYAN);
@@ -295,14 +299,12 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 
 	private void btnValidarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnValidarActionPerformed
 		InvocaTelaValidacao telaVal = new InvocaTelaValidacao(tabela, this, autenticado);
-
 	}// GEN-LAST:event_btnValidarActionPerformed
 
 	private void btnCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCadUsuarioActionPerformed
 		dispose();
 		new TelaCadUsuario(this, true).setVisible(true);
 	}// GEN-LAST:event_btnCadUsuarioActionPerformed
-
 
 	private void btnAtenderActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAtenderActionPerformed
 		try {
@@ -312,26 +314,26 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(null, "Selecione um chamado.");
 			erro = false;
 		}
-		
-		if (erro != false) {
-		Chamado chamado = new Chamado();
-		chamado.setDtAtendimento(Calendar.getInstance());
-		new ChamadoDao().atualizaAtender(autenticado, prot, chamado);
-		tabela.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "Status", "Protocolo",
-				"Data de Abertura", "Urgência", "Tipo", "Solicitante", "Departamento", "Título", "Téc. Responsável" }) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false, false, false };
 
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return canEdit[columnIndex];
-			}
-		});
-		preTab.preencheTabelaTecnico(tabela, autenticado);
+		if (erro != false) {
+			Chamado chamado = new Chamado();
+			chamado.setDtAtendimento(Calendar.getInstance());
+			new ChamadoDao().atualizaAtender(autenticado, prot, chamado);
+			tabela.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {},
+					new String[] { "Status", "Protocolo", "Data de Abertura", "Urgência", "Tipo", "Solicitante",
+							"Departamento", "Título", "Téc. Responsável" }) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+				boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false, false, false };
+
+				public boolean isCellEditable(int rowIndex, int columnIndex) {
+					return canEdit[columnIndex];
+				}
+			});
+			preTab.preencheTabelaTecnico(tabela, autenticado);
 		}
-                                          
 
 	}
 
@@ -376,22 +378,22 @@ public class TelaInicialTecnico extends javax.swing.JFrame {
 		});
 	}
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAtender;
-    private javax.swing.JButton btnCadUsuario;
-    private javax.swing.JButton btnDetalhes;
-    private javax.swing.JButton btnEncerrarChamado;
-    private javax.swing.JButton btnExcluirUsuario;
-    private javax.swing.JButton btnSair;
-    private javax.swing.JButton btnValidar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblHistorico;
-    private javax.swing.JTable tabela;
-    // End of variables declaration//GEN-END:variables
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton btnAtender;
+	private javax.swing.JButton btnCadUsuario;
+	private javax.swing.JButton btnDetalhes;
+	private javax.swing.JButton btnEncerrarChamado;
+	private javax.swing.JButton btnExcluirUsuario;
+	private javax.swing.JButton btnSair;
+	private javax.swing.JButton btnValidar;
+	private javax.swing.JLabel jLabel1;
+	private javax.swing.JLabel jLabel2;
+	private javax.swing.JLabel jLabel3;
+	private javax.swing.JLabel jLabel4;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JLabel lblHistorico;
+	private javax.swing.JTable tabela;
+	// End of variables declaration//GEN-END:variables
 
 }
